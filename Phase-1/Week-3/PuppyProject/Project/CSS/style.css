@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: #f5f5f6;
+  color: #222;
+}
+/* ===== Header ===== */
+header {
+  background-color: #195774;
+  padding: 25px 20px;
+  text-align: center;
+}
+.heading-note {
+  color: #fcfeff;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+/* ===== Banner ===== */
+.puppy-banner img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+/* ===== Three-image row section ===== */
+section:nth-of-type(2) {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 40px 30px;
+}
+.puppy-1 img,
+.puppy-2 img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.puppy-missing {
+  background-color: #ed4f66;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 320px;
+}
+.puppy-missing-note {
+  font-size: 1.6rem;
+  text-align: center;
+  color: #222;
+  font-weight: 400;
+  line-height: 1.4;
+}
+/* ===== More Puppies section ===== */
+.more-puppies {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+section:nth-of-type(3) > div:last-child {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 0 30px 50px;
+}
+.puppy-3 img,
+section:nth-of-type(3) > div:last-child > div:last-child img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  display: block;
+}
+/* ===== Footer ===== */
+.footer-note {
+  background-color: #195774;
+  text-align: center;
+  padding: 40px 20px;
+}
+.footer-para {
+  color: #fcfeff;
+  font-size: 1.4rem;
+  font-weight: 700;
+}

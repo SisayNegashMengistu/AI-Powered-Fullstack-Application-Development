@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM-manipulation and Event Handling</title>
+
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>DOM-manipulation and Event Handling</h1>
+
+    <h4>For Question 1:</h4>
+    <div id="sample1">
+      <p>This is a sample content. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lectus justo, suscipit ac justo at, pretium eleifend leo. Praesent ipsum ante, elementum finibus gravida eu, tempor vitae mi. Sed molestie mauris nec eros finibus auctor. Integer non massa metus. Duis in tortor nec magna pellentesque dictum. Nunc tristique in sem ac hendrerit. Duis semper turpis fringilla urna rutrum vulputate.</p>
+
+      <p>Aliquam lobortis fermentum arcu ut dignissim. Vestibulum quis lorem risus. Quisque cursus, lorem vitae sagittis posuere, sem turpis rhoncus magna, a consectetur est nisl ac quam. Cras faucibus venenatis orci ultrices elementum. Nulla facilisi. Praesent libero tellus, egestas vel mauris at, aliquet ullamcorper odio. Aliquam auctor laoreet enim vel dictum. Fusce a neque condimentum, suscipit dolor vel, placerat arcu. Nunc vel sapien eleifend, dignissim ex nec, interdum velit. Duis elit lorem, malesuada et sodales ut, sodales quis mi.</p>
+    </div>
+
+    <hr>
+
+    <h4>For Question 2:</h4>
+      <h5>List of top Tech companies</h5>
+      <div>
+        <ul id="techCompanies">
+          <li class="red">Apple</li>
+          <li class="blue">Samsung</li>
+          <li class="blue">Foxconn</li>
+          <li class="red">Alphabet</li>
+          <li class="blue">Microsoft</li>
+          <li class="red">Huawei</li>
+          <li class="blue">Dell</li>
+          <li class="red">Hitachi</li>
+          <li class="blue">IBM</li>
+          <li class="blue">Sony</li>
+        </ul>
+
+        <div id="blueCompanies">
+          <p>How many of the companies above are colored blue? Display the result below.</p>
+        </div>
+      </div>
+
+    <hr>
+   <button id="yes">Yes</button>
+   <button id="No">No</button>
+    <hr>
+    <h4>For Question 4:</h4>
+    <h5>The Sum and Average of two numbers</h5>
+    <form id="adder" action="#" method="POST" onsubmit="handleSubmit(event)">
+      <div class="form-values">
+        <p>
+          First value<br />
+          <input type="text" name="first-value" placeholder="First value" />
+        </p>
+        <p>
+          Second value<br />
+          <input type="text" name="second-value" placeholder="Second value" />
+        </p>
+      </div>
+      <br />
+      <button id="submitButton" type="submit">Sum and Average</button>
+    </form>
+    <br />
+    <div id="sum">Result will be displayed here</div>
+    <br />
+
+<!-- "if they work inline use this example"
+    <form onsubmit="handleSubmit(event)">
+      <input id="thisId" type="text">
+      <button>submit</button>
+    </form> -->
+    
+<script src="js/script.js"></script>
+  </body>
+</html>

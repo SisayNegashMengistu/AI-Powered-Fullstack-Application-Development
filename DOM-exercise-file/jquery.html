@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="">Home</a></li>
+    <li><a href="">portfolio</a></li>
+    <li><a href="">about</a></li>
+    <li><a href="">contact</a></li>
+  </ul>
+  <p id="p1">Hove me</p>
+  <p id="p2"> click me</p>
+  <p id="p3">double click me</p>
+  <p id="p4">leave me alone</p>
+  <p>press [enter]</p>
+</nav>
+ 
+<script>
+  $(document).ready(function(){
+    $('#p1').hover(function(){
+      $(this).hide();
+    });
+
+    $('#p2').click(function(){
+      $(this).hide();
+    });
+
+    $('#p3').dblclick(function(){
+      $(this).hide();
+    });
+
+    $('#p4').mouseleave(function(){
+      $(this).hide();
+    });
+    let menutimeout=false;
+    $(document).keypress(function(e){
+      if(e.which==13){
+        if(menutimeout==false){
+          $('nav').feedIn(500);
+           menutimeout=true;
+        }else if(menutimeout==true){
+          $('nav').feedOut(500);
+           menutimeout=false;
+        }
+      }   
+    });
+  }); 
+</script>
+</body>
+</html>

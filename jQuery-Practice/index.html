@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery Practice</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+   <style>
+    .error {
+    color: red;
+    margin-left: 10px;
+}
+
+.input-error {
+    border: 2px solid red;
+    border-radius: 20px;
+    outline: 3px solid rgba(255, 0, 0, 0.2);
+    background-color: #fff5f5;
+}
+    </style>
+  </head>
+  <body>
+   <h1>jQuery Practice</h1>
+    <h4>For Question 1:</h4>
+    <div id="sample1">
+      <p>This is a sample content. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lectus justo, suscipit ac justo at, pretium eleifend leo. Praesent ipsum ante, elementum finibus gravida eu, tempor vitae mi. Sed molestie mauris nec eros finibus auctor. Integer non massa metus. Duis in tortor nec magna pellentesque dictum. Nunc tristique in sem ac hendrerit. Duis semper turpis fringilla urna rutrum vulputate.</p>
+
+      <p>Aliquam lobortis fermentum arcu ut dignissim. Vestibulum quis lorem risus. Quisque cursus, lorem vitae sagittis posuere, sem turpis rhoncus magna, a consectetur est nisl ac quam. Cras faucibus venenatis orci ultrices elementum. Nulla facilisi. Praesent libero tellus, egestas vel mauris at, aliquet ullamcorper odio. Aliquam auctor laoreet enim vel dictum. Fusce a neque condimentum, suscipit dolor vel, placerat arcu. Nunc vel sapien eleifend, dignissim ex nec, interdum velit. Duis elit lorem, malesuada et sodales ut, sodales quis mi.</p>
+    </div>
+
+    <hr>
+
+    <h4>For Question 2:</h4>
+      <h5>List of top Tech companies</h5>
+      <div>
+        <ul id="techCompanies">
+          <li class="red">Apple</li>
+          <li class="blue">Samsung</li>
+          <li class="blue">Foxconn</li>
+          <li class="red">Alphabet</li>
+          <li class="blue">Microsoft</li>
+          <li class="red">Huawei</li>
+          <li class="blue">Dell</li>
+          <li class="red">Hitachi</li>
+          <li class="blue">IBM</li>
+          <li class="blue">Sony</li>
+          <!-- <ul>
+            <li> Test</li>
+          </ul> -->
+        </ul>
+
+        <div id="blueCompanies">
+          <p>How many of the companies above are colored blue? Display the result below.</p>
+        </div>
+      </div> 
+     <hr>
+     <h4>For Question 3:</h4>
+   <form id="calcForm">
+
+    <label for="in1">First Number:</label>
+    <input type="text" id="in1">
+    <span id="in1Err" class="error"></span>
+
+    <br><br>
+
+    <label for="in2">Second Number:</label>
+    <input type="text" id="in2">
+    <span id="in2Err" class="error"></span>
+
+    <br><br>
+
+    <button type="submit">Sum and Average</button>
+ <h4>result of sum is:</h4>
+    <p id="dsum"></p>
+      <h4>result of average is :</h4>
+    <p id="davg"></p>
+
+</form>
+  
+   <hr>
+       <h4>For Question 4:</h4>
+   <span class="err"></span>
+
+   <form action="#" style="border: 2px solid black; width: 500px;" id="userForm">
+    <br>
+    <label for="forF">First Name</label>
+    <input id="forF" type="text" >
+    <br>
+    <br>
+    <label for="forL">last Name</label>
+    <input  id="forL" type="text" >
+    <br>
+    <br>
+    <label for="email">email</label>
+    <input id="email"type="email" >
+    <br>
+    <br>
+    <button  id="btn">submit</button> 
+    </form>
+    <span class="result"></span>
+  <!-- other HTML content above -->
+<script>
+    // Try CDN first
+    const jquery = document.createElement("script");
+    jquery.src = "https://code.jquery.com/jquery-4.0.0.js";
+    // CDN successfully loaded
+    jquery.onload = function () {
+        console.log("jQuery loaded from CDN");
+
+        loadMyScript();
+    };
+
+    // CDN failed → load local jQuery
+    jquery.onerror = function () {
+        console.log("CDN failed. Using local jQuery...");
+
+        const localJQuery = document.createElement("script");
+
+        localJQuery.src = "js/jquery-4.0.0.js";
+        // Local jQuery successfully loaded
+        localJQuery.onload = function () {
+            console.log("jQuery loaded from local file");
+
+            loadMyScript();
+        };
+
+        // Local jQuery also failed
+        localJQuery.onerror = function () {
+            console.error("ERROR: jQuery could not be loaded.");
+        };
+
+        document.head.appendChild(localJQuery);
+    };
+
+    document.head.appendChild(jquery);
+
+
+    // Function to load your JavaScript
+    function loadMyScript() {
+
+        const myScript = document.createElement("script");
+
+        myScript.src = "js/script.js";
+
+        myScript.onload = function () {
+            console.log("script.js loaded successfully");
+        };
+
+        myScript.onerror = function () {
+            console.error("ERROR: script.js could not be loaded.");
+        };
+
+        document.body.appendChild(myScript);
+    }
+</script>
+  <script src="js/jquery-4.0.0.min.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    $(document).ready(function() {
+    // Form CSS
+    $("#userForm").css({
+        "width": "500px",
+        "height": "300px",
+        "background-color": "lightblue",
+        "border": "2px solid black",
+        "padding": "20px",
+        "margin": "50px auto",
+        "border-radius": "10px",
+        "font-size": "18px"
+    });
+
+    // Input CSS
+    $("#userForm input").css({
+        "width": "250px",
+        "height": "30px",
+        "font-size": "16px",
+        "padding": "5px"
+    });
+
+    // Button CSS
+    $("#btn").css({
+        "width": "120px",
+        "height": "40px",
+        "background-color": "green",
+        "color": "white",
+        "font-size": "16px",
+        "border-radius": "5px"
+    });
+
+});
+</script>
+</body>
+</html>

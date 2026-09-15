@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Common HTML Tags</title>
+  </head>
+  <body>
+
+    <!-- ===================== HEADINGS ===================== -->
+    <h1>Heading Level 1 - h1</h1>
+    <h2>Heading Level 2 - h2</h2>
+    <h3>Heading Level 3 - h3</h3>
+    <h4>Heading Level 4 - h4</h4>
+    <h5>Heading Level 5 - h5</h5>
+    <h6>Heading Level 6 - h6</h6>
+
+    <hr />
+
+    <!-- ===================== PARAGRAPH ===================== -->
+    <h2>Paragraph Tag</h2>
+    <p>
+      This is a paragraph. The paragraph tag is used to group sentences and
+      blocks of text together. Each paragraph starts on a new line and has some
+      spacing above and below it by default.
+    </p>
+    <p>
+      This is a second paragraph. You can have as many paragraphs as you need
+      on a page.
+    </p>
+
+    <hr />
+
+    <!-- ===================== TEXT FORMATTING ===================== -->
+    <h2>Text Formatting Tags</h2>
+    <p><b>This text is bold using the b tag.</b></p>
+    <p><strong>This text is strongly important (also bold) using strong tag.</strong></p>
+    <p><i>This text is italic using the i tag.</i></p>
+    <p><em>This text is emphasized (also italic) using the em tag.</em></p>
+    <p><u>This text is underlined using the u tag.</u></p>
+    <p><s>This text has a strikethrough using the s tag.</s></p>
+    <p>This text contains a <mark>highlighted</mark> word using the mark tag.</p>
+    <p>Water chemical formula: H<sub>2</sub>O — subscript using sub tag.</p>
+    <p>Math example: X<sup>2</sup> + Y<sup>2</sup> = Z<sup>2</sup> — superscript using sup tag.</p>
+    <p><small>This text is smaller using the small tag.</small></p>
+    <p>This is a <br /> line break using the br tag. Text continues on the next line.</p>
+
+    <hr />
+
+    <!-- ===================== LINKS ===================== -->
+    <h2>Anchor / Link Tag</h2>
+
+    <p>
+      This is an external link:
+      <a href="https://www.google.com" target="_blank">Visit Google</a>
+      — opens in a new tab using target="_blank".
+    </p>
+
+    <p>
+      This is a link to another HTML file in the same folder:
+      <a href="imagepractice.html">Go to Image Practice Page</a>
+    </p>
+
+    <p>
+      This is a link to an email address:
+      <a href="mailto:example@email.com">Send us an email</a>
+    </p>
+
+    <p>
+      This is a link to a phone number:
+      <a href="tel:+1234567890">Call us: +1 234 567 890</a>
+    </p>
+
+    <hr />
+
+    <!-- ===================== IMAGES ===================== -->
+    <h2>Image Tag</h2>
+
+    <p>Image with relative path (from myImages folder):</p>
+    <img src="./myImages/imageOne.jpg" alt="Image One" width="300" />
+
+    <p>Image with a title attribute (tooltip on hover):</p>
+    <img
+      src="./myImages/imageTwo.jpg"
+      alt="Image Two"
+      width="300"
+      title="This is image two"
+    />
+
+    <hr />
+
+    <!-- ===================== LISTS ===================== -->
+    <h2>Unordered List (ul)</h2>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+      <li>React</li>
+    </ul>
+
+    <h2>Ordered List (ol)</h2>
+    <ol>
+      <li>First step: Learn HTML</li>
+      <li>Second step: Learn CSS</li>
+      <li>Third step: Learn JavaScript</li>
+      <li>Fourth step: Build projects</li>
+    </ol>
+
+    <h2>Nested List</h2>
+    <ul>
+      <li>
+        Frontend
+        <ul>
+          <li>HTML</li>
+          <li>CSS</li>
+          <li>JavaScript</li>
+        </ul>
+      </li>
+      <li>
+        Backend
+        <ul>
+          <li>Node.js</li>
+          <li>Python</li>
+          <li>Java</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>Description List (dl)</h2>
+    <dl>
+      <dt>HTML</dt>
+      <dd>HyperText Markup Language — the structure of web pages.</dd>
+      <dt>CSS</dt>
+      <dd>Cascading Style Sheets — the styling of web pages.</dd>
+      <dt>JavaScript</dt>
+      <dd>A programming language used to make web pages interactive.</dd>
+    </dl>
+
+    <hr />
+
+    <!-- ===================== TABLE ===================== -->
+    <h2>Table Tag</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Abebe</td>
+          <td>25</td>
+          <td>Ethiopia</td>
+        </tr>
+        <tr>
+          <td>Sara</td>
+          <td>30</td>
+          <td>Kenya</td>
+        </tr>
+        <tr>
+          <td>John</td>
+          <td>22</td>
+          <td>USA</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">End of table</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <hr />
+
+    <!-- ===================== FORMS ===================== -->
+    <h2>Form Tag and Input Types</h2>
+    <form action="#" method="post">
+
+      <label for="fname">First Name:</label>
+      <input type="text" id="fname" name="fname" placeholder="Enter your first name" />
+      <br /><br />
+
+      <label for="lname">Last Name:</label>
+      <input type="text" id="lname" name="lname" placeholder="Enter your last name" />
+      <br /><br />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" />
+      <br /><br />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter password" />
+      <br /><br />
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" min="1" max="120" />
+      <br /><br />
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" />
+      <br /><br />
+
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" placeholder="+251 900 000 000" />
+      <br /><br />
+
+      <label for="website">Website:</label>
+      <input type="url" id="website" name="website" placeholder="https://example.com" />
+      <br /><br />
+
+      <label>Gender:</label>
+      <input type="radio" id="male" name="gender" value="male" />
+      <label for="male">Male</label>
+      <input type="radio" id="female" name="gender" value="female" />
+      <label for="female">Female</label>
+      <br /><br />
+
+      <label>Hobbies:</label>
+      <input type="checkbox" id="reading" name="hobbies" value="reading" />
+      <label for="reading">Reading</label>
+      <input type="checkbox" id="coding" name="hobbies" value="coding" />
+      <label for="coding">Coding</label>
+      <input type="checkbox" id="sports" name="hobbies" value="sports" />
+      <label for="sports">Sports</label>
+      <br /><br />
+
+      <label for="country">Country:</label>
+      <select id="country" name="country">
+        <option value="">-- Select Country --</option>
+        <option value="ethiopia">Ethiopia</option>
+        <option value="kenya">Kenya</option>
+        <option value="usa">USA</option>
+        <option value="uk">UK</option>
+      </select>
+      <br /><br />
+
+      <label for="message">Message:</label>
+      <br />
+      <textarea id="message" name="message" rows="5" cols="40" placeholder="Write your message here..."></textarea>
+      <br /><br />
+
+      <label for="profile">Upload Profile Picture:</label>
+      <input type="file" id="profile" name="profile" />
+      <br /><br />
+
+      <label for="volume">Volume (range input):</label>
+      <input type="range" id="volume" name="volume" min="0" max="100" />
+      <br /><br />
+
+      <label for="color">Pick a Color:</label>
+      <input type="color" id="color" name="color" />
+      <br /><br />
+
+      <input type="submit" value="Submit Form" />
+      <input type="reset" value="Reset Form" />
+
+    </form>
+
+    <hr />
+
+    <!-- ===================== DIV AND SPAN ===================== -->
+    <h2>Div and Span Tags</h2>
+
+    <div>
+      <p>This paragraph is inside a div. The div tag is a block-level container used to group elements together.</p>
+      <p>Another paragraph inside the same div.</p>
+    </div>
+
+    <p>
+      The span tag is an inline container. For example:
+      <span style="color: red;">this word is red</span> and
+      <span style="color: blue;">this word is blue</span>
+      using the span tag with inline style.
+    </p>
+
+    <hr />
+
+    <!-- ===================== SEMANTIC TAGS ===================== -->
+    <h2>Semantic HTML5 Tags</h2>
+
+    <header>
+      <p>This is a header section — uses the header tag.</p>
+    </header>
+
+    <nav>
+      <p>This is a navigation section — uses the nav tag.</p>
+      <a href="#">Home</a> |
+      <a href="#">About</a> |
+      <a href="#">Contact</a>
+    </nav>
+
+    <main>
+      <p>This is the main content area — uses the main tag.</p>
+
+      <article>
+        <h3>Article Tag</h3>
+        <p>An article tag represents a self-contained piece of content, like a blog post or news article.</p>
+      </article>
+
+      <section>
+        <h3>Section Tag</h3>
+        <p>A section tag represents a thematic grouping of content, typically with a heading.</p>
+      </section>
+
+      <aside>
+        <h3>Aside Tag</h3>
+        <p>An aside tag represents content that is related but separate from the main content, like a sidebar.</p>
+      </aside>
+    </main>
+
+    <footer>
+      <p>This is a footer section — uses the footer tag.</p>
+      <p>&copy; 2024 My HTML Learning Project. All rights reserved.</p>
+    </footer>
+
+    <hr />
+
+    <!-- ===================== BLOCKQUOTE AND QUOTE ===================== -->
+    <h2>Blockquote and Quote Tags</h2>
+
+    <blockquote cite="https://www.example.com">
+      "The best way to learn to code is to write code every single day.
+      Consistency is more important than perfection."
+    </blockquote>
+
+    <p>As someone once said: <q>Small steps every day lead to big results.</q></p>
+
+    <hr />
+
+    <!-- ===================== CODE AND PRE ===================== -->
+    <h2>Code and Pre Tags</h2>
+
+    <p>Use the code tag for inline code: <code>console.log("Hello World");</code></p>
+
+    <pre>
+      This is preformatted text.
+      It preserves     spaces
+      and line breaks exactly
+      as they are typed.
+    </pre>
+
+    <pre>
+      <code>
+        function greet(name) {
+          return "Hello, " + name + "!";
+        }
+        console.log(greet("sisay"));
+      </code>
+    </pre>
+
+    <hr />
+
+    <!-- ===================== IFRAME ===================== -->
+    <h2>Iframe Tag</h2>
+    <p>Embedding a YouTube video using iframe:</p>
+     <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/yfoY53QXEnI"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          itle="YouTube video player"
+        ></iframe>
+    <hr />
+
+    <!-- ===================== AUDIO AND VIDEO ===================== -->
+    <h2>Audio Tag</h2>
+    <audio controls>
+      <source src="myImages/sample-audio.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <h2>Video Tag</h2>
+    <video width="400" controls>
+      <source src="myImages/sample-video.mp4" type="video/mp4" />
+      Your browser does not support the video element.
+    </video>
+    <hr />
+
+    <!-- ===================== META AND DETAILS ===================== -->
+    <h2>Details and Summary Tags</h2>
+    <details>
+      <summary>Click to expand — What is HTML?</summary>
+      <p>
+        HTML stands for HyperText Markup Language. It is the standard language
+        used to create and structure content on the web. HTML uses a system of
+        tags and attributes to define the structure of a web page.
+      </p>
+    </details>
+
+    <details>
+      <summary>Click to expand — What is CSS?</summary>
+      <p>
+        CSS stands for Cascading Style Sheets. It is used to control the
+        presentation, layout, and visual appearance of HTML elements.
+      </p>
+    </details>
+
+    <hr />
+
+    <!-- ===================== ABBREVIATION AND ADDRESS ===================== -->
+    <h2>Abbreviation Tag</h2>
+    <p>
+      <abbr title="HyperText Markup Language">HTML</abbr> is the foundation
+      of all web pages. <abbr title="Cascading Style Sheets">CSS</abbr> styles them.
+    </p>
+
+    <h2>Address Tag</h2>
+    <address>
+      Written by Sisay Negash<br />
+      Dire Dawa University<br />
+      Dire Dawa, Ethiopia<br />
+      Email: <a href="mailto:ctrlasoft@gmail.com">ctrlasoft@gmail.com</a>
+    </address>
+
+    <hr />
+
+    <!-- ===================== HORIZONTAL RULE ===================== -->
+    <h2>Horizontal Rule Tag</h2>
+    <p>The hr tag creates a horizontal line to separate content:</p>
+    <hr />
+    <p>Content above and below the horizontal rule.</p>
+    <hr />
+
+  </body>
+</html>

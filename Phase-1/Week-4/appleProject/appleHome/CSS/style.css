@@ -1,0 +1,278 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+}
+body {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ─── Header ───── */
+.header {
+  background: black;
+  color: #fff;
+  font-weight: 200;
+  font-size: 0.75em;
+}
+.container {
+  width: 980px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+.nav ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+.nav ul li {
+  display: inline-block;
+  padding: 14px 0 8px;
+  height: 25px;
+  opacity: 0.8;
+}
+.nav ul li:hover {
+  opacity: 1;
+}
+.nav ul li a {
+  text-decoration: none;
+  color: #fff;
+}
+.nav-logo,
+.nav-search,
+.nav-cart {
+  width: 18px;
+  display: block;
+}
+.nav-logo { padding: 12px 0 10px !important; }
+.nav-search { padding: 14px 0 8px !important; }
+.nav-cart { padding: 12px 0 10px !important; }
+
+/* ─── Shared: CTA links ───── */
+.cta ul {
+  list-style: none;
+  padding: 15px 0;
+}
+.cta ul li {
+  display: inline-block;
+  padding-right: 20px;
+}
+.cta ul li a {
+  color: #06c;
+  text-decoration: none;
+}
+.cta ul li a:hover {
+  color: #000;
+}
+.cta ul li a::after {
+  font-family: "FontAwesome";
+  font-weight: 900;
+  content: "\f105";
+  padding-left: 10px;
+}
+
+/* ─── Section 1: Hero ────── */
+.hero {
+  background: #fafafa;
+  text-align: center;
+  padding: 25px 0;
+}
+.model {
+  font-size: 0.85em;
+}
+.product-title {
+  font-weight: 700;
+  font-size: 56px;
+}
+.tagline {
+  font-size: 2em;
+}
+.hero-img {
+  /* wraps the main laptop image */
+}
+
+/* ─── Section 2: iPhone 11 Pro ───────── */
+.sec-iphone-pro {
+  background-image: url("../images/home/iphone11-pro-bg.jpg");
+  height: 580px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  padding: 65px 20px;
+  color: #fff;
+}
+
+/* ─── Section 3: iPhone 11 ────────── */
+.sec-iphone {
+  background-image: url("../images/home/iphone11-bg.jpg");
+  height: 580px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  padding: 65px 20px;
+}
+
+/* ─── Shared: title / desc / price ──────── */
+.title {
+  font-weight: 600;
+  font-size: 56px;
+}
+.desc {
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 10px;
+}
+.price {
+  color: #86868b;
+  font-size: 0.85em;
+}
+
+/* ─── Shared: Split sections────────── */
+.sec-split {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+}
+.col-left,
+.col-right {
+  height: 580px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  width: 48.5%;
+  padding-top: 54px;
+}
+.col-left  { margin: 1% 0.5% 0% 1%; }
+.col-right { margin: 1% 1% 0% 0.5%; }
+
+/* ─── Section 4: Watch + Apple Card ─────────────── */
+.sec-watch-card .col-left  { background-image: url("../images/home/watch-series-5.jpg"); }
+.sec-watch-card .col-right { background-image: url("../images/home/apple-card.jpg"); }
+
+/* ─── Section 5: Apple TV + AirPods ─────────────── */
+.sec-tv-airpods .col-left {
+  background-image: url("../images/home/apple-tv-background.jpg");
+}
+.sec-tv-airpods .col-right {
+  background-image: url("../images/home/air-pods.jpg");
+  color: #fff;
+  background-size: initial;
+  background-color: #000;
+  background-position: bottom;
+}
+.logo {
+  font-size: 40px;
+  font-weight: bold;
+}
+.show-logo {
+  padding: 180px 0 200px;
+}
+.trailer a {
+  text-decoration: none;
+  font-size: 0.85em;
+}
+.trailer a::after {
+  font-family: "FontAwesome";
+  font-weight: 900;
+  content: "\f144";
+  padding-left: 15px;
+}
+
+/* ─── Section 6: MacBook Pro + iPad ─────────────── */
+.sec-mac-ipad .col-left {
+  background-image: url("../images/home/macbook-pro.jpg");
+  background-size: initial;
+  background-color: #fafafa;
+  background-position: bottom;
+}
+.sec-mac-ipad .col-right {
+  background-image: url("../images/home/new-ipad.jpg");
+}
+.product-title-sm {
+  font-weight: 700;
+  font-size: 45px;
+}
+
+/* ─── Footer ────────────────────────────────── */
+.footer {
+  background-color: #f5f5f7;
+  color: #1d1d1f;
+  font-size: 0.65em;
+}
+.footer-note {
+  border-bottom: 1px solid #d2d2d7;
+  color: #86868b;
+  padding: 17px 0 20px;
+}
+.footer-note a {
+  text-decoration: none;
+  color: #515154;
+}
+.footer-note a:hover {
+  text-decoration: underline;
+}
+.footer-cols {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+.footer-col ul {
+  list-style: none;
+  padding-bottom: 20px;
+}
+.footer-col ul li {
+  padding: 5px 0;
+  font-size: 0.9em;
+}
+.footer-cols a {
+  color: #515154;
+  text-decoration: none;
+}
+.footer-cols a:hover {
+  text-decoration: underline;
+}
+.footer-col h3 {
+  font-size: 12px;
+  font-weight: 600;
+}
+.footer-store {
+  border-bottom: 1px solid #d2d2d7;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0 20px;
+}
+.footer-terms ul li {
+  display: inline-block;
+  padding: 0 5px;
+  border-right: 1px solid #ccc;
+}
+.footer-terms ul li:last-child {
+  border-right: 0;
+}
+.footer-terms ul li a {
+  text-decoration: none;
+  color: #515154;
+}
+.footer-terms ul li a:hover {
+  text-decoration: underline;
+}
+.footer-country {
+  display: inline-block;
+}
+.flag {
+  display: inline-block;
+  vertical-align: middle;
+}
+.country-name {
+  display: inline-block;
+  vertical-align: top;
+}

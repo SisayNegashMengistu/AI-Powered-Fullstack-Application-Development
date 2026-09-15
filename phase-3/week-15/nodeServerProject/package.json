@@ -1,0 +1,13 @@
+{
+  "name": "node-server-project",
+  "version": "1.0.0",
+  "description": "Practice exercises: HTTP and Express web servers",
+  "main": "myWebServer.js",
+  "scripts": {
+    "start:http": "node myWebServer.js",
+    "start:express": "node myWebServerExpress.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

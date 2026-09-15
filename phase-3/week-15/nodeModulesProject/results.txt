@@ -1,0 +1,2 @@
+The value of 14 when passed through the myMultiplier function is (28).
+The value of 14 when passed through the myMultiplier function is (42).

@@ -1,0 +1,28 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ }
+ .center{
+  background-color:blue;
+  color: yellow;
+  text-align: center;
+ }
+ .para-container p{
+  margin: 2%;
+ }
+ .image1{
+  background-image: url(../image/puppy-1.jpg);
+ 
+ 
+ }
+ .image2{
+  background-image: url(../image/puppy-2.jpg);
+ 
+ }
+ .all-image{
+  height: 310px;
+  background-size: cover;
+  width: 308px;
+  margin: 2% auto;
+ }

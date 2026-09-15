@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+
+<!-- internal styles -->
+ <style>
+  /* gender css */
+  #status {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+#status label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+#status input[type="radio"] {
+  margin: 0;
+}
+  /* end of gender css */
+  :root{
+    --ink:#12151c;
+    --panel:#1b2030;
+    --panel-soft:#232a3d;
+    --paper:#f6f4ee;
+    --paper-dim:#eae7dc;
+    --ink-text:#e9e6dd;
+    --ink-text-dim:#9a9fae;
+    --brass:#c9a227;
+    --brass-dim:#a8862060;
+    --teal:#2f6f63;
+    --red:#c1443b;
+    --border-dark:#2c3346;
+    --border-light:#ded9c8;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    display:flex;
+    background:var(--ink);
+    font-family:var(--font-body);
+    color:var(--ink-text);
+  }
+  .stage{
+    display:flex;
+    width:100%;
+    min-height:100vh;
+  }
+
+  /* ---------- LEFT PANEL ---------- */
+  .brand-pane{
+    flex:0 0 42%;
+    background:var(--ink);
+    padding:56px 56px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    position:relative;
+    overflow:hidden;
+  }
+  .brand-pane::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(var(--panel) 1px, transparent 1px),
+      linear-gradient(90deg, var(--panel) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:.35;
+    pointer-events:none;
+  }
+  .brand-top{position:relative; z-index:1;}
+  .wordmark{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin:0 0 40px;
+  }
+  .headline{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:clamp(32px, 3.4vw, 44px);
+    line-height:1.12;
+    margin:0 0 16px;
+    color:var(--ink-text);
+  }
+  .headline em{
+    font-style:italic;
+    color:var(--brass);
+  }
+  .subline{
+    font-size:15px;
+    line-height:1.6;
+    color:var(--ink-text-dim);
+    max-width:34ch;
+    margin:0;
+  }
+
+  .lock-wrap{
+    position:relative;
+    z-index:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:32px 0;
+  }
+  #lockSvg{width:180px; height:180px; overflow:visible;}
+  .shackle{
+    transform-origin:90px 70px;
+    transition:transform .55s cubic-bezier(.34,1.56,.64,1);
+  }
+  .shackle.open{ transform:rotate(-32deg) translate(-8px,-4px); }
+  .body-plate{ fill:var(--panel-soft); stroke:var(--border-dark); stroke-width:2; }
+  .keyhole{ fill:var(--ink); }
+  .ring-track{ fill:none; stroke:var(--border-dark); stroke-width:5; }
+  .ring-fill{
+    fill:none; stroke:var(--brass); stroke-width:5; stroke-linecap:round;
+    stroke-dasharray:326; stroke-dashoffset:326;
+    transform:rotate(-90deg); transform-origin:90px 78px;
+    transition:stroke-dashoffset .35s ease, stroke .35s ease;
+  }
+  .pulse-ok{ stroke:var(--teal) !important; }
+
+  .status-line{
+    position:relative; z-index:1;
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--ink-text-dim);
+    border-top:1px solid var(--border-dark);
+    padding-top:16px;
+    display:flex;
+    justify-content:space-between;
+  }
+  .status-line span:last-child{ color:var(--brass); }
+
+  /* ---------- RIGHT PANE ---------- */
+  .form-pane{
+    flex:1;
+    background:var(--paper);
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 24px;
+  }
+  .card{ width:100%; max-width:400px; }
+
+  .tabs{
+    position:relative;
+    display:flex;
+    border-bottom:1px solid var(--border-light);
+    margin-bottom:32px;
+  }
+  .tab-btn{
+    flex:1;
+    background:none;
+    border:none;
+    font-family:var(--font-body);
+    font-size:14px;
+    font-weight:600;
+    color:#8a8676;
+    padding:0 0 14px;
+    cursor:pointer;
+    letter-spacing:.01em;
+  }
+  .tab-btn.active{ color:var(--ink); }
+  .tab-indicator{
+    position:absolute;
+    bottom:-1px; left:0;
+    height:2px;
+    background:var(--brass);
+    transition:transform .35s cubic-bezier(.65,0,.35,1), width .35s cubic-bezier(.65,0,.35,1);
+  }
+
+  .panel{ display:none; }
+  .panel.active{ display:block; animation:fadeUp .35s ease; }
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(6px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#a08f4e;
+    margin:0 0 6px;
+  }
+  .panel h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:26px;
+    margin:0 0 6px;
+  }
+  .panel p.lede{
+    font-size:14px;
+    color:#6b6858;
+    margin:0 0 28px;
+    line-height:1.5;
+  }
+
+  .field{ margin-bottom:18px; }
+  .field label{
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    color:#4a4738;
+    margin-bottom:6px;
+  }
+  .field-input-wrap{ position:relative; }
+  .field input,
+  .field select{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:14.5px;
+    padding:12px 14px;
+    background:#fff;
+    border:1px solid var(--border-light);
+    border-radius:8px;
+    color:var(--ink);
+    transition:border-color .18s ease, box-shadow .18s ease;
+  }
+  .field input::placeholder{ color:#b7b2a0; }
+  .field input:focus,
+  .field select:focus{
+    outline:none;
+    border-color:var(--brass);
+    box-shadow:0 0 0 3px var(--brass-dim);
+  }
+  .field input.error,
+  .field select.error{ border-color:var(--red); }
+  .field input.error:focus,
+  .field select.error:focus{ box-shadow:0 0 0 3px rgba(193,68,59,.18); }
+
+  /* Radio group gets the same red-outline treatment as text inputs when invalid */
+  #status.error{
+    outline:2px solid var(--red);
+    outline-offset:6px;
+    border-radius:8px;
+  }
+
+  .toggle-vis{
+    position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    background:none; border:none; cursor:pointer;
+    padding:4px; color:#9a9584;
+    display:flex; align-items:center;
+  }
+  .toggle-vis:hover{ color:var(--ink); }
+
+  .err-msg{
+    font-size:12px;
+    color:var(--red);
+    margin-top:6px;
+    min-height:14px;
+  }
+  /* Small non-color cue so errors aren't communicated by color alone (Part 23 / WCAG 1.4.1) */
+  .err-msg:not(:empty)::before{
+    content:"⚠ ";
+  }
+
+  .row-between{
+    display:flex; justify-content:space-between; align-items:center;
+    margin:-6px 0 20px;
+  }
+  .remember{
+    display:flex; align-items:center; gap:7px;
+    font-size:13px; color:#6b6858;
+  }
+  .remember input{ accent-color:var(--brass); width:14px; height:14px; }
+  .link-btn{
+    background:none; border:none; padding:0;
+    font-family:var(--font-body); font-size:13px; font-weight:600;
+    color:#a08f4e; cursor:pointer; text-decoration:none;
+  }
+  .link-btn:hover{ color:var(--brass); text-decoration:underline; }
+
+  .strength{
+    display:flex; gap:4px; margin-top:8px;
+  }
+  .strength i{
+    flex:1; height:3px; border-radius:2px; background:var(--border-light);
+    transition:background .2s ease;
+  }
+  .strength-label{
+    font-size:11.5px; color:#8a8676; margin-top:6px; font-family:var(--font-mono);
+  }
+
+  .terms{
+    display:flex; align-items:flex-start; gap:8px;
+    font-size:12.5px; color:#6b6858; line-height:1.5;
+    margin-bottom:22px;
+  }
+  .terms input{ margin-top:2px; accent-color:var(--brass); }
+
+  button.submit{
+    width:100%;
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:14.5px;
+    padding:13px;
+    background:var(--ink);
+    color:var(--paper);
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    letter-spacing:.01em;
+    transition:background .18s ease, transform .05s ease;
+  }
+  button.submit:hover{ background:#26314a; }
+  button.submit:active{ transform:scale(.99); }
+  button.submit:focus-visible{ outline:2px solid var(--brass); outline-offset:2px; }
+
+  .switch-line{
+    text-align:center; font-size:13px; color:#6b6858; margin-top:22px;
+  }
+  .switch-line button{
+    background:none; border:none; padding:0;
+    font-weight:600; color:var(--ink); cursor:pointer; text-decoration:underline;
+    font-family:var(--font-body); font-size:13px;
+  }
+
+  .banner{
+    display:none;
+    align-items:flex-start;
+    gap:10px;
+    font-size:13px;
+    line-height:1.5;
+    padding:12px 14px;
+    border-radius:8px;
+    margin-bottom:20px;
+  }
+  .banner.show{ display:flex; }
+  .banner.success{ background:#e7efe8; color:var(--teal); border:1px solid #c3d8c6; }
+  .banner.error{ background:#f7e9e7; color:var(--red); border:1px solid #ecc8c3; }
+
+  .back-row{
+    display:flex; align-items:center; gap:6px;
+    font-size:13px; color:#a08f4e; cursor:pointer;
+    margin-bottom:18px; font-weight:600; width:fit-content;
+  }
+  .back-row:hover{ color:var(--brass); }
+
+  @media (max-width: 860px){
+    .stage{ flex-direction:column; }
+    .brand-pane{
+      flex:none; width:100%; padding:36px 28px 28px;
+    }
+    .lock-wrap{ margin:20px 0; }
+    #lockSvg{ width:120px; height:120px; }
+    .subline{ max-width:none; }
+    .form-pane{ padding:36px 24px 60px; }
+  }
+
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- LEFT: brand / signature panel -->
+  <aside class="brand-pane">
+    <div class="brand-top">
+      <p class="wordmark">User · account access</p>
+      <h1 class="headline" id="headline">Access,<br><em>secured.</em></h1>
+      <p class="subline" id="subline">One key, held carefully. Sign in to pick up where you left off, or set up a new account in under a minute.</p>
+    </div>
+
+    <div class="lock-wrap">
+      <svg id="lockSvg" viewBox="0 0 180 180" role="img" aria-label="Illustrated padlock indicating account security status">
+        <circle class="ring-track" cx="90" cy="78" r="52"></circle>
+        <circle id="ringFill" class="ring-fill" cx="90" cy="78" r="52"></circle>
+        <g class="shackle" id="shackle">
+          <path d="M65 78 V56 a25 25 0 0 1 50 0 V78" fill="none" stroke="#8a8360" stroke-width="10" stroke-linecap="round"/>
+        </g>
+        <rect class="body-plate" x="48" y="76" width="84" height="62" rx="10"></rect>
+        <circle class="keyhole" cx="90" cy="100" r="7"></circle>
+        <rect class="keyhole" x="86.5" y="100" width="7" height="16"></rect>
+      </svg>
+    </div>
+
+    <div class="status-line">
+      <span id="statusLabel">status</span>
+      <span id="statusValue">idle</span>
+    </div>
+  </aside>
+
+  <!-- RIGHT: forms -->
+  <main class="form-pane">
+    <div class="card">
+
+      <div class="tabs" id="tabs">
+        <button class="tab-btn active" id="tabLogin" type="button">Log in</button>
+        <button class="tab-btn" id="tabRegister" type="button">Create account</button>
+        <span class="tab-indicator" id="tabIndicator"></span>
+      </div>
+
+      <!-- LOGIN PANEL -->
+      <section class="panel active" id="panelLogin">
+        <p class="eyebrow">Welcome back</p>
+        <h1>Log in to your account</h1>
+        <p class="lede">Enter the email and password you used to register.</p>
+
+        <div class="banner" id="loginBanner"></div>
+
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="loginEmail">Email</label>
+            <input type="text" id="loginEmail" placeholder="name@company.com" autocomplete="username">
+            <p class="err-msg" id="loginEmailErr"></p>
+          </div>
+          <div class="field">
+            <label for="loginPassword">Password</label>
+            <div class="field-input-wrap">
+              <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
+              <button type="button" class="toggle-vis" data-target="loginPassword" aria-label="Show password">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <p class="err-msg" id="loginPasswordErr"></p>
+          </div>
+
+          <div class="row-between">
+            <label class="remember"><input type="checkbox" id="rememberMe"> Remember me</label>
+            <button type="button" class="link-btn" id="forgotLink">Forgot password?</button>
+          </div>
+
+          <button type="submit" class="submit">Log in</button>
+        </form>
+
+        <p class="switch-line">New here? <button type="button" id="goRegister">Create an account</button></p>
+      </section>
+
+      <!-- REGISTER PANEL -->
+      <section class="panel" id="panelRegister">
+        <h1 class="eyebrow">Create your account</h1>
+        <div class="banner" id="registerBanner"></div>
+       <form id="registerForm" novalidate>
+        <div class="field">
+  <label for="RegistrationType">Admission Type</label>
+  <select id="RegistrationType">
+    <option value="" selected disabled>Select admission type</option>
+    <option value="regular">Regular</option>
+    <option value="remedial">Remedial</option>
+    <option value="regular_transfer">Regular Transfer</option>
+    <option value="remedial_transfer">Remedial Transfer</option>
+    <option value="scholarship">Scholarship</option>
+  </select>
+  <p class="err-msg" id="regstrationTypeErr"></p>
+</div>
+<!-- //date of birth -->
+  <div class="field">
+    <label for="dob">Date of Birth</label>
+    <input type="date" id="dob" placeholder="e.g. 2000-01-01" max="2024-12-31">
+    <p class="err-msg" id="dobErr"></p>
+  </div>
+<!-- age of student -->
+  <div class="field">
+    <label for="age">Age</label>
+    <input type="number" id="age" placeholder="e.g. 20" min="0" max="150" inputmode="numeric">
+    <p class="err-msg" id="ageErr"></p>
+  </div>
+<!--student ID-->
+  <div class="field">
+    <label for="studentId">Student ID</label>
+    <input type="text" id="studentId" placeholder="e.g. DDU2013,RMD2012,DDUS2013,RMDT2013" autocomplete="off">
+    <p class="err-msg" id="studentIdErr"></p>
+  </div>
+  <!-- Student First name -->
+  <div class="field">
+    <label for="regFtName">Your name</label>
+    <input type="text" id="regFtName" placeholder="Jordan Ellis" autocomplete="name">
+    <p class="err-msg" id="regFtNameErr"></p>
+  </div>
+  <!-- student Father name -->
+ <div class="field">
+    <label for="regFaName">Father name</label>
+    <input type="text" id="regFaName" placeholder="Jordan Ellis" autocomplete="name">
+    <p class="err-msg" id="regFaNameErr"></p>
+  </div>
+  <!-- studnet Gfathername -->
+   <div class="field">
+    <label for="regGfName">Grandfather name</label>
+    <input type="text" id="regGfName" placeholder="Jordan Ellis" autocomplete="name">
+    <p class="err-msg" id="regGfNameErr"></p>
+  </div>
+  <!-- student email -->
+  <div class="field">
+    <label for="regEmail">Email</label>
+    <input type="text" id="regEmail" placeholder="name@company.com" autocomplete="email">
+    <p class="err-msg" id="regEmailErr"></p>
+  </div>
+  <!-- phone number -->
+  <div class="field">
+    <label for="regPhone">Phone number</label>
+    <input type="text" id="regPhone" placeholder="+251 9xx xxx xxx or 09xxxxxxxx" autocomplete="tel">
+    <p class="err-msg" id="regPhoneErr"></p>
+  </div>
+
+  <!-- year entry -->
+  <div class="field">
+    <label for="entryYear">Entry year</label>
+    <input type="number" id="entryYear" placeholder="e.g. 2022" min="2000" max="2100" inputmode="numeric">
+    <p class="err-msg" id="entryYearErr"></p>
+  </div>
+
+  <div class="field">
+    <label for="gradYear">Expected graduation year</label>
+    <input type="number" id="gradYear" placeholder="e.g. 2026" min="2000" max="2100" inputmode="numeric">
+    <p class="err-msg" id="gradYearErr"></p>
+  </div>
+<!-- department -->
+  <div class="field">
+    <label for="department">Department</label>
+    <select id="department">
+      <option value="" selected disabled>Select department</option>
+      <option value="SE">Software Engineering</option>
+      <option value="CS">Computer Science</option>
+      <option value="MIE">Mechanical &amp; Industrial Engineering</option>
+      <option value="IT">Information Technology</option>
+      <option value="ComEngi">Computer Engineering</option>
+      <option value="Civil">Civil Engineering</option>
+    </select>
+    <p class="err-msg" id="departmentErr"></p>
+  </div>
+  <!-- status -->
+  <div class="field">
+    <label for="status">Status</label>
+    <select id="status">
+      <option value="" selected disabled>Select status</option>
+      <option value="graduate">Graduate</option>
+      <option value="active">Active</option>
+      <option value="inactive">Inactive</option>
+      <option value="withdraw">Withdraw</option>
+    </select>
+    <p class="err-msg" id="statusSelectErr"></p>
+  </div>
+<!-- sex -->
+ <div class="field">
+  <label id="genderLabel">Gender</label>
+
+  <div id="status" role="radiogroup" aria-labelledby="genderLabel" aria-describedby="genderErr">
+    <label>
+      <input type="radio" name="gender" value="graduate">
+      Male
+    </label>
+    <label>
+      <input type="radio" name="gender" value="active">
+      Female
+    </label>
+  </div>
+
+  <p class="err-msg" id="genderErr"></p>
+</div>
+<!-- password  -->
+  <div class="field">
+    <label for="regPassword">Password</label>
+    <div class="field-input-wrap">
+      <input type="password" id="regPassword" placeholder="At least 8 characters" autocomplete="new-password">
+      <button type="button" class="toggle-vis" data-target="regPassword" aria-label="Show password">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+    <div class="strength" id="strengthBars">
+      <i></i><i></i><i></i><i></i>
+    </div>
+    <p class="strength-label" id="strengthLabel">Password strength</p>
+    <p class="err-msg" id="regPasswordErr"></p>
+  </div>
+
+  <div class="field">
+    <label for="regConfirm">Confirm password</label>
+    <div class="field-input-wrap">
+      <input type="password" id="regConfirm" placeholder="Re-enter your password" autocomplete="new-password">
+      <button type="button" class="toggle-vis" data-target="regConfirm" aria-label="Show password">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+    <p class="err-msg" id="regConfirmErr"></p>
+  </div>
+
+  <label class="terms">
+    <input type="checkbox" id="agreeTerms">
+    <span>I agree to the Terms of Service and Privacy Policy.</span>
+  </label>
+  <p class="err-msg" id="agreeTermsErr" style="margin-top:-14px; margin-bottom:14px;"></p>
+
+  <button type="submit" class="submit">Create account</button>
+</form>
+
+        <p class="switch-line">Already have an account? <button type="button" id="goLogin">Log in</button></p>
+      </section>
+
+      <!-- FORGOT PASSWORD PANEL -->
+      <section class="panel" id="panelForgot">
+        <div class="back-row" id="backToLogin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to log in
+        </div>
+        <p class="eyebrow">Reset access</p>
+        <h1>Forgot your password?</h1>
+        <p class="lede">Enter the email on your account and we'll send reset instructions.</p>
+
+        <div class="banner" id="forgotBanner"></div>
+
+        <form id="forgotForm" novalidate>
+          <div class="field">
+            <label for="forgotEmail">Email</label>
+            <input type="text" id="forgotEmail" placeholder="name@company.com" autocomplete="email">
+            <p class="err-msg" id="forgotEmailErr"></p>
+          </div>
+          <button type="submit" class="submit">Send reset link</button>
+        </form>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     SECTION 0 — SHARED HELPERS
+     ============================================================ */
+
+  // Grabs an <input>/<select> and its matching <p class="err-msg" id="...Err">
+  // by convention. Falls back to an explicit errId when the naming
+  // doesn't follow the simple "<fieldId>Err" pattern (a few fields in
+  // this form don't — see the ID map below).
+  function getField(fieldId, errId) {
+    var input = document.getElementById(fieldId);
+    var err = document.getElementById(errId || (fieldId + "Err"));
+    return { input: input, err: err };
+  }
+
+  // Applies the .error class + message to a single input/select field,
+  // or clears both when message is empty/null.
+  function setFieldState(field, message) {
+    if (!field.input) return;
+    if (message) {
+      field.input.classList.add("error");
+      field.input.setAttribute("aria-invalid", "true");
+      if (field.err) field.err.setAttribute("id", field.err.id); // no-op, keeps id stable
+      if (field.input.id && field.err) {
+        field.input.setAttribute("aria-describedby", field.err.id);
+      }
+      if (field.err) field.err.textContent = message;
+    } else {
+      field.input.classList.remove("error");
+      field.input.removeAttribute("aria-invalid");
+      if (field.err) field.err.textContent = "";
+    }
+  }
+
+  // Same idea, but for the gender radio-group container (#status) which
+  // has no single "input" to put .error on — it gets an outline instead.
+  function setGroupState(container, errEl, message) {
+    if (!container) return;
+    if (message) {
+      container.classList.add("error");
+      if (errEl) errEl.textContent = message;
+    } else {
+      container.classList.remove("error");
+      if (errEl) errEl.textContent = "";
+    }
+  }
+
+  function isEmpty(v) {
+    return v === null || v === undefined || String(v).trim().length === 0;
+  }
+
+  /* ============================================================
+     SECTION 1 — REGISTER FORM FIELD REFERENCES
+     ============================================================
+     Most fields follow "<id>Err" naming. Four don't, because the
+     source HTML used the same id ("statusErr") for two different
+     fields (Status select + Gender group) — a real collision that
+     had to be resolved. See Part 2 of the written explanation for
+     what changed and why. */
+
+  var regForm = document.getElementById("registerForm");
+
+  var F = {
+    admissionType: getField("RegistrationType", "regstrationTypeErr"),
+    dob: getField("dob"),
+    age: getField("age"),
+    studentId: getField("studentId"),
+    firstName: getField("regFtName"),
+    fatherName: getField("regFaName"),
+    grandfatherName: getField("regGfName"),
+    email: getField("regEmail"),
+    phone: getField("regPhone"),
+    entryYear: getField("entryYear"),
+    gradYear: getField("gradYear"),
+    department: getField("department"),
+    status: getField("status", "statusSelectErr"),
+    password: getField("regPassword"),
+    confirmPassword: getField("regConfirm"),
+    agreeTerms: getField("agreeTerms")
+  };
+
+  var genderContainer = document.getElementById("status"); // the radio-group <div>, distinct from F.status (the <select>)
+  var genderErr = document.getElementById("genderErr");
+  var genderRadios = document.querySelectorAll('input[name="gender"]');
+
+  /* ============================================================
+     SECTION 2 — VALIDATION RULES / REGEX CONSTANTS
+     ============================================================ */
+
+  // Letters only (incl. common accented letters), single spaces between
+  // words, no leading/trailing space, no digits, no symbols.
+  // ^[A-Za-z]+(?: [A-Za-z]+)*$
+  //   ^                    start
+  //   [A-Za-z]+            first word: one or more letters
+  //   (?: [A-Za-z]+)*      zero or more additional words, each preceded
+  //                        by exactly ONE space — this is what blocks
+  //                        double spaces, leading spaces, trailing spaces
+  //   $                    end
+  var NAME_RE = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
+
+  // Reasonable (not overengineered) email pattern:
+  // ^[^\s@]+@[^\s@]+\.[^\s@]+$
+  //   ^[^\s@]+   local part: 1+ chars, no spaces, no @
+  //   @          literal @
+  //   [^\s@]+    domain label: 1+ chars, no spaces, no @
+  //   \.         literal dot
+  //   [^\s@]+$   TLD: 1+ chars, no spaces, no @, to end of string
+  // This naturally rejects "student@@gmail.com" (two @ in a row means
+  // the middle [^\s@]+ can't match across the second @) and "student@gmail"
+  // (no dot after the @) and "student.com" (no @ at all).
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Ethiopian phone: +251 followed by exactly 9 digits, OR 09 followed
+  // by exactly 8 digits. Nothing else.
+  // ^(\+251\d{9}|09\d{8})$
+  //   ^            start
+  //   \+251        literal "+251"
+  //   \d{9}        exactly 9 digits
+  //   |            OR
+  //   09           literal "09"
+  //   \d{8}        exactly 8 digits
+  //   $            end
+  var PHONE_RE = /^(\+251\d{9}|09\d{8})$/;
+
+  // Password: 8+ chars, 1+ uppercase, 1+ lowercase, 1+ digit, 1+ special char.
+  // Built as four independent lookaheads rather than one dense pattern,
+  // so each requirement is checked (and can be reported) on its own —
+  // easier to read and easier to give a specific error for.
+  var PW_MIN_LENGTH = 8;
+  var PW_HAS_UPPER = /[A-Z]/;
+  var PW_HAS_LOWER = /[a-z]/;
+  var PW_HAS_DIGIT = /\d/;
+  var PW_HAS_SPECIAL = /[!@#$%^&*(),.?":{}|<>_\-\[\]\\\/~`+=;']/;
+
+  // Student ID: one of the five known prefixes, then digits, matching
+  // the placeholder examples given (DDU2013, RMD2012, DDUS2013, RMDT2013).
+  // ^(DDUS|DDUT|DDU|RMDT|RMD)\d{4}$
+  //   Longer prefixes (DDUS, DDUT, RMDT) are listed BEFORE their shorter
+  //   substrings (DDU, RMD) so the alternation tries the more specific
+  //   match first — otherwise "DDUS2013" could partially match "DDU" and
+  //   then fail on the leftover "S2013".
+  //   \d{4}   exactly 4 digits (matches the year-like suffix in every
+  //           example you gave: 2013, 2012, 2013, 2013)
+  var STUDENT_ID_RE = /^(DDUS|DDUT|DDU|RMDT|RMD)\d{4}$/;
+
+  var FOUR_YEAR_DEPTS = ["CS", "IT"];
+  var FIVE_YEAR_DEPTS = ["SE", "MIE", "ComEngi", "Civil"];
+
+  /* ============================================================
+     SECTION 3 — INDIVIDUAL FIELD VALIDATORS
+     Each returns an error string, or "" when valid.
+     ============================================================ */
+
+  function validateName(rawValue, label) {
+    if (isEmpty(rawValue)) return "Please enter the " + label + ".";
+    if (rawValue !== rawValue.trim()) {
+      return label.charAt(0).toUpperCase() + label.slice(1) + " must not start or end with a space.";
+    }
+    if (/\s{2,}/.test(rawValue)) {
+      return label.charAt(0).toUpperCase() + label.slice(1) + " must not contain multiple spaces.";
+    }
+    if (!NAME_RE.test(rawValue)) {
+      return label.charAt(0).toUpperCase() + label.slice(1) + " must contain letters only (no numbers or symbols).";
+    }
+    return "";
+  }
+
+  function validateAdmissionType() {
+    var v = F.admissionType.input ? F.admissionType.input.value : "";
+    if (isEmpty(v)) return "Please select an admission type.";
+    return "";
+  }
+
+  function validateDob() {
+    var raw = F.dob.input ? F.dob.input.value : "";
+    if (isEmpty(raw)) return "Please enter your date of birth.";
+
+    var dobDate = new Date(raw + "T00:00:00");
+    if (isNaN(dobDate.getTime())) return "Please enter a valid date of birth.";
+
+    var today = new Date();
+    if (dobDate.getTime() > today.getTime()) {
+      return "Date of birth cannot be in the future.";
+    }
+
+    var calcAge = calculateAgeFromDob(dobDate, today);
+    if (calcAge < 18) {
+      return "You must be at least 18 years old to register.";
+    }
+    return "";
+  }
+
+  // Standard "has the birthday happened yet this year" age calculation.
+  function calculateAgeFromDob(dobDate, referenceDate) {
+    var age = referenceDate.getFullYear() - dobDate.getFullYear();
+    var monthDiff = referenceDate.getMonth() - dobDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && referenceDate.getDate() < dobDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  function validateAge() {
+    var raw = F.age.input ? F.age.input.value : "";
+    if (isEmpty(raw)) return "Please enter your age.";
+    var n = Number(raw);
+    if (!Number.isInteger(n)) return "Age must be a whole number.";
+    if (n < 18) return "Age must be at least 18.";
+    if (n >= 100) return "Age must be under 100.";
+
+    // Cross-check against DOB when DOB is itself valid, per requirement #4/#18.
+    var dobRaw = F.dob.input ? F.dob.input.value : "";
+    if (!isEmpty(dobRaw)) {
+      var dobDate = new Date(dobRaw + "T00:00:00");
+      if (!isNaN(dobDate.getTime()) && dobDate.getTime() <= new Date().getTime()) {
+        var calcAge = calculateAgeFromDob(dobDate, new Date());
+        if (calcAge !== n) {
+          return "Age (" + n + ") does not match the age calculated from your date of birth (" + calcAge + ").";
+        }
+      }
+    }
+    return "";
+  }
+
+  function validateEntryYear() {
+    var raw = F.entryYear.input ? F.entryYear.input.value : "";
+    if (isEmpty(raw)) return "Please enter your entry year.";
+    var n = Number(raw);
+    if (!Number.isInteger(n)) return "Entry year must be a valid year.";
+
+    var currentYear = new Date().getFullYear();
+    if (n > currentYear) return "Entry year cannot be in the future.";
+
+    // Entry-year / DOB relationship (requirement #6): the student should
+    // have been at least 17 years old — matching the >= 18 rule with a
+    // one-year grace period for students who enter shortly before their
+    // 18th birthday, which is common for university admission — in the
+    // January of their entry year. This is a deliberately loose sanity
+    // check, not a strict admission-age law, since exact minimum
+    // admission age wasn't specified.
+    var dobRaw = F.dob.input ? F.dob.input.value : "";
+    if (!isEmpty(dobRaw)) {
+      var dobDate = new Date(dobRaw + "T00:00:00");
+      if (!isNaN(dobDate.getTime())) {
+        var ageAtEntryJan1 = calculateAgeFromDob(dobDate, new Date(n, 0, 1));
+        if (ageAtEntryJan1 < 17) {
+          return "Entry year is inconsistent with date of birth — student would have been under 17.";
+        }
+      }
+    }
+    return "";
+  }
+
+  function validateStudentId() {
+    var raw = F.studentId.input ? F.studentId.input.value : "";
+    if (isEmpty(raw)) return "Please enter your student ID.";
+    var trimmed = raw.trim();
+    if (trimmed !== raw) return "Student ID must not have leading or trailing spaces.";
+    if (!STUDENT_ID_RE.test(trimmed)) {
+      return "Student ID must start with DDU, DDUS, DDUT, RMD, or RMDT, followed by 4 digits (e.g. DDU2013).";
+    }
+    return "";
+  }
+
+  function validateEmail(field) {
+    var raw = field.input ? field.input.value : "";
+    if (isEmpty(raw)) return "Please enter your email address.";
+    var trimmed = raw.trim();
+    if (trimmed.indexOf(" ") !== -1) return "Email address must not contain spaces.";
+    if (!EMAIL_RE.test(trimmed)) return "Please enter a valid email address.";
+    return "";
+  }
+
+  function validatePhone() {
+    var raw = F.phone.input ? F.phone.input.value : "";
+    if (isEmpty(raw)) return "Please enter your phone number.";
+
+    var trimmed = raw.trim();
+    // Spaces/hyphens/parentheses anywhere (even after trimming outer
+    // whitespace) are rejected outright rather than stripped, per
+    // "do not silently convert one format into another."
+    if (/[\s\-()]/.test(trimmed)) {
+      return "Phone number must not contain spaces, hyphens, or parentheses.";
+    }
+    if (!PHONE_RE.test(trimmed)) {
+      return "Enter a valid Ethiopian number: +251XXXXXXXXX or 09XXXXXXXX.";
+    }
+    return "";
+  }
+
+  function validateDepartment() {
+    var v = F.department.input ? F.department.input.value : "";
+    if (isEmpty(v)) return "Please select a department.";
+    return "";
+  }
+
+  function getProgramDurationYears(deptCode) {
+    if (FOUR_YEAR_DEPTS.indexOf(deptCode) !== -1) return 4;
+    if (FIVE_YEAR_DEPTS.indexOf(deptCode) !== -1) return 5;
+    return null; // unknown program — handled explicitly, not assumed
+  }
+
+  function validateGradYear() {
+    var raw = F.gradYear.input ? F.gradYear.input.value : "";
+    if (isEmpty(raw)) return "Please enter the expected graduation year.";
+    var gradN = Number(raw);
+    if (!Number.isInteger(gradN)) return "Graduation year must be a valid year.";
+
+    var entryRaw = F.entryYear.input ? F.entryYear.input.value : "";
+    var deptCode = F.department.input ? F.department.input.value : "";
+
+    if (isEmpty(entryRaw) || isEmpty(deptCode)) {
+      // Can't cross-check yet — entry year / department errors will
+      // surface separately; don't block on graduation year alone.
+      return "";
+    }
+    var entryN = Number(entryRaw);
+    if (!Number.isInteger(entryN)) return "";
+
+    var duration = getProgramDurationYears(deptCode);
+    if (duration === null) {
+      return "Graduation year could not be verified — unrecognized department code.";
+    }
+    var expected = entryN + duration;
+    if (gradN !== expected) {
+      return "For this " + duration + "-year program, graduation year must be " + expected + " (entry year + " + duration + ").";
+    }
+    return "";
+  }
+
+  function validateStatusSelect() {
+    var v = F.status.input ? F.status.input.value : "";
+    if (isEmpty(v)) return "Please select a status.";
+    return "";
+  }
+
+  function validateGender() {
+    var checked = false;
+    for (var i = 0; i < genderRadios.length; i++) {
+      if (genderRadios[i].checked) { checked = true; break; }
+    }
+    if (!checked) return "Please select your gender.";
+    return "";
+  }
+
+  function validatePassword() {
+    var raw = F.password.input ? F.password.input.value : "";
+    if (isEmpty(raw)) return "Please enter a password.";
+    if (raw.length < PW_MIN_LENGTH) return "Password must be at least 8 characters long.";
+    if (!PW_HAS_UPPER.test(raw)) return "Password must contain at least one uppercase letter.";
+    if (!PW_HAS_LOWER.test(raw)) return "Password must contain at least one lowercase letter.";
+    if (!PW_HAS_DIGIT.test(raw)) return "Password must contain at least one number.";
+    if (!PW_HAS_SPECIAL.test(raw)) return "Password must contain at least one special character.";
+    return "";
+  }
+
+  function validateConfirmPassword() {
+    var pw = F.password.input ? F.password.input.value : "";
+    var confirm = F.confirmPassword.input ? F.confirmPassword.input.value : "";
+    if (isEmpty(confirm)) return "Please confirm your password.";
+    if (confirm !== pw) return "Passwords do not match.";
+    return "";
+  }
+
+  function validateAgreeTerms() {
+    var checked = F.agreeTerms.input ? F.agreeTerms.input.checked : false;
+    if (!checked) return "You must agree to the Terms of Service and Privacy Policy.";
+    return "";
+  }
+
+  /* ============================================================
+     SECTION 4 — FULL-FORM VALIDATION
+     Runs every validator, applies/clears field state for each,
+     collects the first invalid element for focusing, and returns
+     whether the whole form is valid.
+     ============================================================ */
+
+  function validateForm() {
+    var firstInvalidEl = null;
+    var allValid = true;
+
+    function apply(field, message) {
+      setFieldState(field, message);
+      if (message && allValid !== false) { /* no-op, allValid tracked below */ }
+      if (message) {
+        allValid = false;
+        if (!firstInvalidEl) firstInvalidEl = field.input;
+      }
+    }
+
+    apply(F.admissionType, validateAdmissionType());
+    apply(F.dob, validateDob());
+    apply(F.age, validateAge());
+    apply(F.studentId, validateStudentId());
+    apply(F.firstName, validateName(F.firstName.input.value, "first/given name"));
+    apply(F.fatherName, validateName(F.fatherName.input.value, "father's name"));
+    apply(F.grandfatherName, validateName(F.grandfatherName.input.value, "grandfather's name"));
+    apply(F.email, validateEmail(F.email));
+    apply(F.phone, validatePhone());
+    apply(F.entryYear, validateEntryYear());
+    apply(F.gradYear, validateGradYear());
+    apply(F.department, validateDepartment());
+    apply(F.status, validateStatusSelect());
+    apply(F.password, validatePassword());
+    apply(F.confirmPassword, validateConfirmPassword());
+    apply(F.agreeTerms, validateAgreeTerms());
+
+    // Gender uses the group-state helper since it isn't a single input.
+    var genderMsg = validateGender();
+    setGroupState(genderContainer, genderErr, genderMsg);
+    if (genderMsg) {
+      allValid = false;
+      if (!firstInvalidEl) firstInvalidEl = genderRadios[0] || genderContainer;
+    }
+
+    if (firstInvalidEl && typeof firstInvalidEl.focus === "function") {
+      firstInvalidEl.focus();
+    }
+
+    return allValid;
+  }
+
+  /* ============================================================
+     SECTION 5 — SUBMIT HANDLER
+     Bound to the form's "submit" event (not the button's "click"):
+     this also catches submission via Enter key in any field, which
+     a click-only handler would miss, and it only ever fires once
+     per submission attempt regardless of how it was triggered.
+     ============================================================ */
+
+  if (regForm) {
+    regForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var ok = validateForm();
+      var banner = document.getElementById("registerBanner");
+      if (ok) {
+        if (banner) {
+          banner.className = "banner show success";
+          banner.textContent = "All fields look good — form is ready to submit to the server.";
+        }
+        // Real submission (fetch/XHR to your backend) goes here.
+        // regForm.submit();  // or your fetch() call
+      } else {
+        if (banner) {
+          banner.className = "banner show error";
+          banner.textContent = "Please fix the highlighted fields before continuing.";
+        }
+      }
+    });
+  }
+
+  /* ============================================================
+     SECTION 6 — REAL-TIME (BLUR / CHANGE / INPUT) VALIDATION
+     Per-field, gentle: only starts validating a field AFTER the
+     user has interacted with it once (on blur), then keeps it live
+     on subsequent input so the error clears the moment it's fixed.
+     Dependent fields (DOB/Age, EntryYear/GradYear/Department) are
+     cross-revalidated when any one of them changes.
+     ============================================================ */
+
+  function wireField(field, validateFn, extraRevalidateFns) {
+    if (!field.input) return;
+    var touched = false;
+
+    function run() {
+      var msg = validateFn();
+      setFieldState(field, msg);
+    }
+
+    field.input.addEventListener("blur", function () {
+      touched = true;
+      run();
+    });
+    field.input.addEventListener("input", function () {
+      if (touched) run();
+    });
+    field.input.addEventListener("change", function () {
+      touched = true;
+      run();
+      if (extraRevalidateFns) {
+        extraRevalidateFns.forEach(function (fn) { fn(); });
+      }
+    });
+  }
+
+  wireField(F.admissionType, validateAdmissionType);
+  wireField(F.dob, validateDob, [function () { if (F.age.input && F.age.input.value) setFieldState(F.age, validateAge()); }]);
+  wireField(F.age, validateAge);
+  wireField(F.studentId, validateStudentId);
+  wireField(F.firstName, function () { return validateName(F.firstName.input.value, "first/given name"); });
+  wireField(F.fatherName, function () { return validateName(F.fatherName.input.value, "father's name"); });
+  wireField(F.grandfatherName, function () { return validateName(F.grandfatherName.input.value, "grandfather's name"); });
+  wireField(F.email, function () { return validateEmail(F.email); });
+  wireField(F.phone, validatePhone);
+  wireField(F.entryYear, validateEntryYear, [function () { if (F.gradYear.input && F.gradYear.input.value) setFieldState(F.gradYear, validateGradYear()); }]);
+  wireField(F.gradYear, validateGradYear);
+  wireField(F.department, validateDepartment, [function () { if (F.gradYear.input && F.gradYear.input.value) setFieldState(F.gradYear, validateGradYear()); }]);
+  wireField(F.status, validateStatusSelect);
+  wireField(F.password, validatePassword, [function () { if (F.confirmPassword.input && F.confirmPassword.input.value) setFieldState(F.confirmPassword, validateConfirmPassword()); }]);
+  wireField(F.confirmPassword, validateConfirmPassword);
+  wireField(F.agreeTerms, validateAgreeTerms);
+
+  // Gender radios: validate on change, using the group helper.
+  genderRadios.forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      setGroupState(genderContainer, genderErr, validateGender());
+    });
+  });
+
+  /* ============================================================
+     SECTION 7 — PASSWORD STRENGTH METER (cosmetic, non-blocking)
+     Lights up 0–4 bars based on the same criteria as validatePassword,
+     purely as a UX aid. Does not affect pass/fail — that's governed
+     entirely by validatePassword().
+     ============================================================ */
+
+  (function wireStrengthMeter() {
+    var pwInput = F.password.input;
+    var bars = document.querySelectorAll("#strengthBars i");
+    var label = document.getElementById("strengthLabel");
+    if (!pwInput || !bars.length) return;
+
+    var labels = ["Too weak", "Weak", "Okay", "Good", "Strong"];
+    var colors = ["var(--red)", "var(--red)", "#c98a27", "var(--teal)", "var(--teal)"];
+
+    pwInput.addEventListener("input", function () {
+      var v = pwInput.value;
+      var score = 0;
+      if (v.length >= PW_MIN_LENGTH) score++;
+      if (PW_HAS_UPPER.test(v)) score++;
+      if (PW_HAS_LOWER.test(v)) score++;
+      if (PW_HAS_DIGIT.test(v)) score++;
+      if (PW_HAS_SPECIAL.test(v)) score++;
+      var filled = Math.min(4, score);
+
+      bars.forEach(function (bar, i) {
+        bar.style.background = i < filled ? colors[filled] : "var(--border-light)";
+      });
+      if (label) label.textContent = v.length === 0 ? "Password strength" : labels[filled];
+    });
+  })();
+
+  /* ============================================================
+     SECTION 8 — PRE-EXISTING UI WIRING
+     (tabs, panel switching, show/hide password, login/forgot forms)
+     None of this changes your validation logic — it's the same
+     interactive shell your HTML implied but had no <script> for yet.
+     ============================================================ */
+
+  var tabLogin = document.getElementById("tabLogin");
+  var tabRegister = document.getElementById("tabRegister");
+  var tabIndicator = document.getElementById("tabIndicator");
+  var panelLogin = document.getElementById("panelLogin");
+  var panelRegister = document.getElementById("panelRegister");
+  var panelForgot = document.getElementById("panelForgot");
+  var tabs = document.getElementById("tabs");
+
+  function showPanel(which) {
+    [panelLogin, panelRegister, panelForgot].forEach(function (p) {
+      if (p) p.classList.remove("active");
+    });
+    if (which === "login" && panelLogin) panelLogin.classList.add("active");
+    if (which === "register" && panelRegister) panelRegister.classList.add("active");
+    if (which === "forgot" && panelForgot) panelForgot.classList.add("active");
+
+    if (which === "forgot") {
+      if (tabs) tabs.style.display = "none";
+    } else {
+      if (tabs) tabs.style.display = "flex";
+      tabLogin.classList.toggle("active", which === "login");
+      tabRegister.classList.toggle("active", which === "register");
+      positionIndicator(which === "login" ? tabLogin : tabRegister);
+    }
+  }
+
+  function positionIndicator(activeTab) {
+    if (!tabIndicator || !activeTab) return;
+    tabIndicator.style.width = activeTab.offsetWidth + "px";
+    tabIndicator.style.transform = "translateX(" + activeTab.offsetLeft + "px)";
+  }
+
+  if (tabLogin) tabLogin.addEventListener("click", function () { showPanel("login"); });
+  if (tabRegister) tabRegister.addEventListener("click", function () { showPanel("register"); });
+  var goRegister = document.getElementById("goRegister");
+  var goLogin = document.getElementById("goLogin");
+  var forgotLink = document.getElementById("forgotLink");
+  var backToLogin = document.getElementById("backToLogin");
+  if (goRegister) goRegister.addEventListener("click", function () { showPanel("register"); });
+  if (goLogin) goLogin.addEventListener("click", function () { showPanel("login"); });
+  if (forgotLink) forgotLink.addEventListener("click", function () { showPanel("forgot"); });
+  if (backToLogin) backToLogin.addEventListener("click", function () { showPanel("login"); });
+
+  window.addEventListener("load", function () { positionIndicator(tabLogin); });
+  window.addEventListener("resize", function () {
+    var current = panelRegister && panelRegister.classList.contains("active") ? tabRegister : tabLogin;
+    if (panelForgot && panelForgot.classList.contains("active")) return;
+    positionIndicator(current);
+  });
+
+  // Show/hide password toggles (applies to every .toggle-vis button)
+  document.querySelectorAll(".toggle-vis").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var targetId = btn.getAttribute("data-target");
+      var input = document.getElementById(targetId);
+      if (!input) return;
+      input.type = input.type === "password" ? "text" : "password";
+    });
+  });
+
+  // Minimal login form handling (kept out of scope of the registration
+  // validation spec, but wired so the page doesn't feel half-built).
+  var loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var emailF = getField("loginEmail");
+      var pwF = getField("loginPassword");
+      var ok = true;
+      var firstInvalid = null;
+
+      if (isEmpty(emailF.input.value) || !EMAIL_RE.test(emailF.input.value.trim())) {
+        setFieldState(emailF, "Please enter a valid email address.");
+        ok = false; firstInvalid = firstInvalid || emailF.input;
+      } else {
+        setFieldState(emailF, "");
+      }
+      if (isEmpty(pwF.input.value)) {
+        setFieldState(pwF, "Please enter your password.");
+        ok = false; firstInvalid = firstInvalid || pwF.input;
+      } else {
+        setFieldState(pwF, "");
+      }
+      if (firstInvalid) firstInvalid.focus();
+
+      var banner = document.getElementById("loginBanner");
+      if (banner) {
+        banner.className = ok ? "banner show success" : "banner show error";
+        banner.textContent = ok ? "Looks good — signing in…" : "Please check your email and password.";
+      }
+    });
+  }
+
+  var forgotForm = document.getElementById("forgotForm");
+  if (forgotForm) {
+    forgotForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var emailF = getField("forgotEmail");
+      var banner = document.getElementById("forgotBanner");
+      if (isEmpty(emailF.input.value) || !EMAIL_RE.test(emailF.input.value.trim())) {
+        setFieldState(emailF, "Please enter a valid email address.");
+        emailF.input.focus();
+        if (banner) { banner.className = "banner show error"; banner.textContent = "Please enter a valid email."; }
+      } else {
+        setFieldState(emailF, "");
+        if (banner) { banner.className = "banner show success"; banner.textContent = "If that email is registered, reset instructions are on the way."; }
+      }
+    });
+  }
+
+})();
+</script>
+</body>
+</html>
