@@ -1,0 +1,1854 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Products Database</title>
+
+<style>
+    :root {
+      --primary: #ffc629;
+      --primary-dark: #e6ae00;
+
+      --dark: #111827;
+      --dark-2: #1f2937;
+
+      --text: #172033;
+      --muted: #64748b;
+
+      --border: #dbe2ea;
+      --background: #f5f7fb;
+      --white: #ffffff;
+
+      --success: #16a34a;
+      --danger: #dc2626;
+
+      --radius: 16px;
+
+      --shadow:
+        0 20px 50px rgba(15, 23, 42, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family:
+        "Atkinson Hyperlegible",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(255, 198, 41, 0.16),
+          transparent 32%
+        ),
+        var(--background);
+
+      color: var(--text);
+    }
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    .topbar {
+      background: var(--dark);
+      color: white;
+
+      padding: 18px 30px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      background: var(--primary);
+      color: var(--dark);
+
+      border-radius: 12px;
+
+      font-size: 21px;
+    }
+
+    .brand h1 {
+      margin: 0;
+
+      font-family:
+        "Bricolage Grotesque",
+        sans-serif;
+
+      font-size: 22px;
+    }
+
+    .brand p {
+      margin: 2px 0 0;
+
+      color: #cbd5e1;
+
+      font-size: 13px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+
+      padding: 10px 15px;
+
+      border-radius: 9px;
+
+      color: white;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: var(--dark-2);
+    }
+
+    .nav-links .active {
+      background: var(--primary);
+      color: var(--dark);
+    }
+
+    /* =====================================================
+       PAGE
+       ===================================================== */
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+
+      margin: 40px auto;
+    }
+
+    .page-title {
+      margin-bottom: 30px;
+    }
+
+    .page-title h2 {
+      margin: 0;
+
+      font-family:
+        "Bricolage Grotesque",
+        sans-serif;
+
+      font-size: 32px;
+    }
+
+    .page-title p {
+      margin: 8px 0 0;
+
+      color: var(--muted);
+
+      font-size: 15px;
+    }
+
+    /* =====================================================
+       CARDS
+       ===================================================== */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--white);
+
+      border: 1px solid var(--border);
+
+      border-radius: var(--radius);
+
+      padding: 30px;
+
+      box-shadow: var(--shadow);
+    }
+
+    .card-header {
+      display: flex;
+
+      align-items: center;
+
+      gap: 15px;
+
+      margin-bottom: 26px;
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+
+      display: grid;
+      place-items: center;
+
+      background: #fff8d9;
+
+      border-radius: 14px;
+
+      font-size: 25px;
+    }
+
+    .card-header h3 {
+      margin: 0;
+
+      font-family:
+        "Bricolage Grotesque",
+        sans-serif;
+
+      font-size: 22px;
+    }
+
+    .card-header p {
+      margin: 4px 0 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    /* =====================================================
+       FORM
+       ===================================================== */
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+
+      left: 15px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      pointer-events: none;
+
+      font-size: 17px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      height: 50px;
+
+      padding:
+        0 15px 0 45px;
+
+      border:
+        1.5px solid var(--border);
+
+      border-radius: 10px;
+
+      outline: none;
+
+      background: white;
+
+      font-size: 15px;
+
+      transition: 0.2s ease;
+    }
+
+    .input-wrapper input:focus {
+      border-color: var(--primary);
+
+      box-shadow:
+        0 0 0 4px rgba(255, 198, 41, 0.18);
+    }
+
+    .input-wrapper input.valid {
+      border-color: var(--success);
+    }
+
+    .input-wrapper input.invalid {
+      border-color: var(--danger);
+    }
+
+    .error-message {
+      display: block;
+
+      min-height: 18px;
+
+      margin-top: 5px;
+
+      color: var(--danger);
+
+      font-size: 12px;
+    }
+
+    /* =====================================================
+       BUTTON
+       ===================================================== */
+
+    .btn {
+      width: 100%;
+
+      height: 50px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+
+      color: var(--dark);
+
+      box-shadow:
+        0 8px 20px rgba(255, 198, 41, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      margin-top: 10px;
+
+      background: #f1f5f9;
+
+      color: var(--dark);
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+
+      cursor: not-allowed;
+    }
+
+    /* =====================================================
+       FILE UPLOAD
+       ===================================================== */
+
+    .upload-area {
+      border:
+        2px dashed #cbd5e1;
+
+      border-radius: 14px;
+
+      padding: 30px 20px;
+
+      text-align: center;
+
+      background: #f8fafc;
+
+      transition: 0.2s ease;
+
+      cursor: pointer;
+    }
+
+    .upload-area:hover {
+      border-color: var(--primary);
+
+      background: #fffdf0;
+    }
+
+    .upload-icon {
+      font-size: 42px;
+
+      margin-bottom: 10px;
+    }
+
+    .upload-area h4 {
+      margin: 5px 0;
+
+      font-size: 17px;
+    }
+
+    .upload-area p {
+      margin: 5px 0 15px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .file-name {
+      display: none;
+
+      margin-top: 15px;
+
+      padding: 10px;
+
+      border-radius: 8px;
+
+      background: #fff8d9;
+
+      color: #765d00;
+
+      font-size: 13px;
+
+      font-weight: 700;
+    }
+
+    .format-box {
+      margin-top: 18px;
+
+      padding: 14px;
+
+      background: #f8fafc;
+
+      border-radius: 10px;
+
+      font-size: 13px;
+
+      color: var(--muted);
+
+      text-align: left;
+    }
+
+    .format-box strong {
+      color: var(--text);
+    }
+
+    .format-box code {
+      display: block;
+
+      margin-top: 8px;
+
+      padding: 10px;
+
+      background: var(--dark);
+
+      color: #f8fafc;
+
+      border-radius: 7px;
+
+      overflow-x: auto;
+
+      font-size: 12px;
+    }
+
+    /* =====================================================
+       STATUS
+       ===================================================== */
+
+    .status {
+      display: none;
+
+      margin-top: 18px;
+
+      padding: 13px 15px;
+
+      border-radius: 9px;
+
+      font-size: 14px;
+    }
+
+    .status.success {
+      display: block;
+
+      background: #f0fdf4;
+
+      color: #166534;
+    }
+
+    .status.error {
+      display: block;
+
+      background: #fef2f2;
+
+      color: #991b1b;
+    }
+
+    .status.info {
+      display: block;
+
+      background: #eff6ff;
+
+      color: #1d4ed8;
+    }
+
+    /* =====================================================
+       LOADER
+       ===================================================== */
+
+    .loader {
+      display: none;
+
+      width: 17px;
+      height: 17px;
+
+      margin-left: 8px;
+
+      border:
+        2px solid rgba(17, 24, 39, 0.25);
+
+      border-top-color: var(--dark);
+
+      border-radius: 50%;
+
+      vertical-align: middle;
+
+      animation: spin 0.7s linear infinite;
+    }
+
+    .loading .loader {
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    footer {
+      text-align: center;
+
+      margin: 35px 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 800px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        padding: 15px 18px;
+
+        flex-direction: column;
+
+        gap: 15px;
+      }
+
+      .container {
+        width: min(
+          100% - 24px,
+          600px
+        );
+
+        margin: 25px auto;
+      }
+
+      .page-title h2 {
+        font-size: 26px;
+      }
+
+      .card {
+        padding: 22px;
+      }
+
+      .nav-links {
+        width: 100%;
+      }
+
+      .nav-links a {
+        flex: 1;
+
+        text-align: center;
+      }
+    }
+  </style>
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    body {
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background: #f5f7fa;
+
+      color: #222;
+
+      padding: 40px 20px;
+
+    }
+
+
+    .container {
+
+      max-width: 1150px;
+
+      margin: auto;
+
+    }
+
+
+    /* ========================================================
+       BACK BUTTON
+       ======================================================== */
+
+    .back {
+
+      display: inline-block;
+
+      margin-bottom: 20px;
+
+      padding: 10px 16px;
+
+      background: #111;
+
+      color: white;
+
+      border-radius: 6px;
+
+      text-decoration: none;
+
+    }
+
+
+    .back:hover {
+
+      background: #333;
+
+    }
+
+
+    /* ========================================================
+       HEADER
+       ======================================================== */
+
+    .header {
+
+      background: #111;
+
+      color: white;
+
+      padding: 25px;
+
+      border-radius: 12px 12px 0 0;
+
+    }
+
+
+    .header h1 {
+
+      margin-bottom: 8px;
+
+    }
+
+
+    .header p {
+
+      color: #ccc;
+
+    }
+
+
+    /* ========================================================
+       CARD
+       ======================================================== */
+
+    .card {
+
+      background: white;
+
+      padding: 25px;
+
+      margin-bottom: 25px;
+
+      border-radius: 12px;
+
+      box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+
+    }
+
+
+    /* ========================================================
+       SEARCH
+       ======================================================== */
+
+    .search-box {
+
+      width: 100%;
+
+      padding: 13px;
+
+      border: 1px solid #ccc;
+
+      border-radius: 8px;
+
+      font-size: 16px;
+
+      outline: none;
+
+    }
+
+
+    .search-box:focus {
+
+      border-color: #ffc629;
+
+      box-shadow:
+        0 0 0 3px rgba(255, 198, 41, 0.2);
+
+    }
+
+
+    /* ========================================================
+       EDIT FORM
+       ======================================================== */
+
+    #editCard {
+
+      display: none;
+
+      border-left: 5px solid #ffc629;
+
+    }
+
+
+    #editCard h2 {
+
+      margin-bottom: 20px;
+
+    }
+
+
+    .form-group {
+
+      margin-bottom: 15px;
+
+    }
+
+
+    .form-group label {
+
+      display: block;
+
+      margin-bottom: 7px;
+
+      font-weight: bold;
+
+    }
+
+
+    .form-group input {
+
+      width: 100%;
+
+      padding: 12px;
+
+      border: 1px solid #ccc;
+
+      border-radius: 7px;
+
+      font-size: 15px;
+
+      outline: none;
+
+    }
+
+
+    .form-group input:focus {
+
+      border-color: #ffc629;
+
+    }
+
+
+    .button-group {
+
+      display: flex;
+
+      gap: 10px;
+
+      margin-top: 20px;
+
+    }
+
+
+    button {
+
+      border: none;
+
+      cursor: pointer;
+
+      padding: 10px 16px;
+
+      border-radius: 6px;
+
+      font-size: 14px;
+
+      font-weight: bold;
+
+    }
+
+
+    .update-btn {
+
+      background: #111;
+
+      color: white;
+
+    }
+
+
+    .update-btn:hover {
+
+      background: #333;
+
+    }
+
+
+    .cancel-btn {
+
+      background: #ddd;
+
+      color: #222;
+
+    }
+
+
+    .cancel-btn:hover {
+
+      background: #ccc;
+
+    }
+
+
+    /* ========================================================
+       STATUS
+       ======================================================== */
+
+    .status {
+
+      margin-top: 15px;
+
+      font-weight: bold;
+
+    }
+
+
+    /* ========================================================
+       TABLE
+       ======================================================== */
+
+    .table-container {
+
+      background: white;
+
+      padding: 20px;
+
+      border-radius: 12px;
+
+      box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+
+      overflow-x: auto;
+
+    }
+
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+    }
+
+
+    th,
+    td {
+
+      padding: 14px;
+
+      text-align: left;
+
+      border-bottom: 1px solid #eee;
+
+      vertical-align: middle;
+
+    }
+
+
+    th {
+
+      background: #ffc629;
+
+      color: #111;
+
+    }
+
+
+    tr:hover {
+
+      background: #fafafa;
+
+    }
+
+
+    /* ========================================================
+       PRODUCT URL
+       ======================================================== */
+
+    .product-url {
+
+      color: #0066cc;
+
+      text-decoration: none;
+
+      word-break: break-all;
+
+    }
+
+
+    .product-url:hover {
+
+      text-decoration: underline;
+
+    }
+
+
+    /* ========================================================
+       ACTION BUTTONS
+       ======================================================== */
+
+    .actions {
+
+      display: flex;
+
+      gap: 8px;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .edit-btn {
+
+      background: #ffc629;
+
+      color: #111;
+
+    }
+
+
+    .edit-btn:hover {
+
+      background: #e5ad00;
+
+    }
+
+
+    .delete-btn {
+
+      background: #dc3545;
+
+      color: white;
+
+    }
+
+
+    .delete-btn:hover {
+
+      background: #b02a37;
+
+    }
+
+
+    /* ========================================================
+       EMPTY
+       ======================================================== */
+
+    .empty {
+
+      text-align: center;
+
+      padding: 30px;
+
+      color: #777;
+
+    }
+
+
+    /* ========================================================
+       MOBILE
+       ======================================================== */
+
+    @media (max-width: 700px) {
+
+      body {
+
+        padding: 20px 10px;
+
+      }
+
+
+      th,
+      td {
+
+        padding: 10px;
+
+        font-size: 14px;
+
+      }
+
+
+      .actions {
+
+        flex-direction: column;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+<body>
+    <header class="topbar">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        📦
+      </div>
+
+      <div>
+        <h1>Product Database</h1>
+        <p> Manage products stored in MySQL</p>
+      </div>
+
+    </div>
+
+    <nav class="nav-links">
+
+      <a href="/index.html" class="active">
+        ➕ Add Products
+      </a>
+
+      <a href="/products.html">
+        📋 Products
+      </a>
+
+    </nav>
+
+  </header>
+
+    <!-- ======================================================
+         HEADER
+         ======================================================= -->
+
+
+
+    <!-- ======================================================
+         SEARCH
+         ======================================================= -->
+
+    <div class="card">
+
+      <input
+        type="text"
+        id="search"
+        class="search-box"
+        placeholder="🔍 Search product name..."
+      />
+
+
+      <div
+        id="status"
+        class="status"
+      >
+        Loading products...
+      </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         EDIT PRODUCT FORM
+         ======================================================= -->
+
+    <div
+      id="editCard"
+      class="card"
+    >
+
+      <h2>
+        ✏️ Edit Product
+      </h2>
+
+
+      <input
+        type="hidden"
+        id="editProductId"
+      />
+
+
+      <div class="form-group">
+
+        <label for="editProductName">
+          Product Name
+        </label>
+
+        <input
+          type="text"
+          id="editProductName"
+          placeholder="Product name"
+        />
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="editProductUrl">
+          Product URL
+        </label>
+
+        <input
+          type="url"
+          id="editProductUrl"
+          placeholder="https://example.com/product"
+        />
+
+      </div>
+
+
+      <div class="button-group">
+
+        <button
+          class="update-btn"
+          onclick="updateProduct()"
+        >
+          💾 Update Product
+        </button>
+
+
+        <button
+          class="cancel-btn"
+          onclick="cancelEdit()"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         PRODUCT TABLE
+         ======================================================= -->
+
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              ID
+            </th>
+
+            <th>
+              Product Name
+            </th>
+
+            <th>
+              Product URL
+            </th>
+
+            <th>
+              Actions
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="productTable">
+
+        </tbody>
+
+      </table>
+
+
+      <div
+        id="emptyMessage"
+        class="empty"
+        style="display: none;"
+      >
+        No products found.
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <script>
+
+    // ==========================================================
+    // Global product array
+    // ==========================================================
+
+    let products = [];
+
+
+    // ==========================================================
+    // LOAD PRODUCTS
+    // ==========================================================
+
+    async function loadProducts() {
+
+      const status =
+        document.getElementById("status");
+
+
+      try {
+
+        status.textContent =
+          "Loading products...";
+
+
+        const response =
+          await fetch("/products");
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Failed to fetch products"
+          );
+
+        }
+
+
+        const result =
+          await response.json();
+
+
+        if (!result.success) {
+
+          throw new Error(
+            result.message ||
+            "Unable to fetch products"
+          );
+
+        }
+
+
+        products =
+          result.products;
+
+
+        displayProducts(products);
+
+
+        status.textContent =
+          `${products.length} product(s) found`;
+
+      }
+
+
+      catch (error) {
+
+        console.error(
+          "Error:",
+          error
+        );
+
+
+        status.textContent =
+          "❌ Unable to load products.";
+
+      }
+
+    }
+
+
+    // ==========================================================
+    // DISPLAY PRODUCTS
+    // ==========================================================
+
+    function displayProducts(data) {
+
+      const table =
+        document.getElementById(
+          "productTable"
+        );
+
+
+      const emptyMessage =
+        document.getElementById(
+          "emptyMessage"
+        );
+
+
+      table.innerHTML = "";
+
+
+      if (data.length === 0) {
+
+        emptyMessage.style.display =
+          "block";
+
+        return;
+
+      }
+
+
+      emptyMessage.style.display =
+        "none";
+
+
+      data.forEach(product => {
+
+        const row =
+          document.createElement("tr");
+
+
+        row.innerHTML = `
+
+          <td>
+            ${product.product_id}
+          </td>
+
+
+          <td>
+            ${escapeHtml(
+              product.product_name
+            )}
+          </td>
+
+
+          <td>
+
+            <a
+              class="product-url"
+              href="${escapeHtml(
+                product.product_url
+              )}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ${escapeHtml(
+                product.product_url
+              )}
+            </a>
+
+          </td>
+
+
+          <td>
+
+            <div class="actions">
+
+              <button
+                class="edit-btn"
+                onclick="editProduct(${product.product_id})"
+              >
+                ✏️ Edit
+              </button>
+
+
+              <button
+                class="delete-btn"
+                onclick="deleteProduct(${product.product_id})"
+              >
+                🗑️ Delete
+              </button>
+
+            </div>
+
+          </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+      });
+
+    }
+
+
+    // ==========================================================
+    // EDIT PRODUCT
+    // ==========================================================
+
+    function editProduct(productId) {
+
+      const product =
+        products.find(
+          p =>
+            p.product_id === productId
+        );
+
+
+      if (!product) {
+
+        alert(
+          "Product not found."
+        );
+
+        return;
+
+      }
+
+
+      document.getElementById(
+        "editProductId"
+      ).value =
+        product.product_id;
+
+
+      document.getElementById(
+        "editProductName"
+      ).value =
+        product.product_name;
+
+
+      document.getElementById(
+        "editProductUrl"
+      ).value =
+        product.product_url;
+
+
+      // Show edit form
+      document.getElementById(
+        "editCard"
+      ).style.display =
+        "block";
+
+
+      // Scroll to edit form
+      document.getElementById(
+        "editCard"
+      ).scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+
+    // ==========================================================
+    // UPDATE PRODUCT
+    // ==========================================================
+
+    async function updateProduct() {
+
+      const productId =
+        document.getElementById(
+          "editProductId"
+        ).value;
+
+
+      const productName =
+        document.getElementById(
+          "editProductName"
+        ).value.trim();
+
+
+      const productUrl =
+        document.getElementById(
+          "editProductUrl"
+        ).value.trim();
+
+
+      // Validation
+      if (!productName) {
+
+        alert(
+          "Please enter a product name."
+        );
+
+        return;
+
+      }
+
+
+      if (!productUrl) {
+
+        alert(
+          "Please enter a product URL."
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            `/products/${productId}`,
+            {
+              method: "PUT",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+
+                product_name:
+                  productName,
+
+                product_url:
+                  productUrl
+
+              })
+
+            }
+          );
+
+
+        const result =
+          await response.json();
+
+
+        if (!response.ok ||
+            !result.success) {
+
+          throw new Error(
+            result.message ||
+            "Update failed"
+          );
+
+        }
+
+
+        alert(
+          "✅ Product updated successfully!"
+        );
+
+
+        // Hide edit form
+        cancelEdit();
+
+
+        // Reload database records
+        await loadProducts();
+
+      }
+
+
+      catch (error) {
+
+        console.error(
+          "Update error:",
+          error
+        );
+
+
+        alert(
+          "❌ " +
+          error.message
+        );
+
+      }
+
+    }
+
+
+    // ==========================================================
+    // CANCEL EDIT
+    // ==========================================================
+
+    function cancelEdit() {
+
+      document.getElementById(
+        "editCard"
+      ).style.display =
+        "none";
+
+
+      document.getElementById(
+        "editProductId"
+      ).value =
+        "";
+
+
+      document.getElementById(
+        "editProductName"
+      ).value =
+        "";
+
+
+      document.getElementById(
+        "editProductUrl"
+      ).value =
+        "";
+
+    }
+
+
+    // ==========================================================
+    // DELETE PRODUCT
+    // ==========================================================
+
+    async function deleteProduct(productId) {
+
+      const product =
+        products.find(
+          p =>
+            p.product_id === productId
+        );
+
+
+      if (!product) {
+
+        alert(
+          "Product not found."
+        );
+
+        return;
+
+      }
+
+
+      const confirmed =
+        confirm(
+          `Are you sure you want to delete "${product.product_name}"?`
+        );
+
+
+      if (!confirmed) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            `/products/${productId}`,
+            {
+              method: "DELETE"
+            }
+          );
+
+
+        const result =
+          await response.json();
+
+
+        if (!response.ok ||
+            !result.success) {
+
+          throw new Error(
+            result.message ||
+            "Delete failed"
+          );
+
+        }
+
+
+        alert(
+          "🗑️ Product deleted successfully!"
+        );
+
+
+        // Reload database records
+        await loadProducts();
+
+      }
+
+
+      catch (error) {
+
+        console.error(
+          "Delete error:",
+          error
+        );
+
+
+        alert(
+          "❌ " +
+          error.message
+        );
+
+      }
+
+    }
+
+
+    // ==========================================================
+    // SEARCH PRODUCTS
+    // ==========================================================
+
+    document
+      .getElementById("search")
+      .addEventListener(
+        "input",
+        function () {
+
+          const keyword =
+            this.value
+              .toLowerCase()
+              .trim();
+
+
+          const filteredProducts =
+            products.filter(product =>
+
+              product.product_name
+                .toLowerCase()
+                .includes(keyword)
+
+            );
+
+
+          displayProducts(
+            filteredProducts
+          );
+
+
+          document.getElementById(
+            "status"
+          ).textContent =
+            `${filteredProducts.length} product(s) found`;
+
+        }
+      );
+
+
+    // ==========================================================
+    // BASIC HTML ESCAPING
+    // Prevent database values from being
+    // interpreted as HTML
+    // ==========================================================
+
+    function escapeHtml(value) {
+
+      return String(value)
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    // ==========================================================
+    // INITIAL LOAD
+    // ==========================================================
+
+    loadProducts();
+
+  </script>
+
+
+</body>
+
+</html>

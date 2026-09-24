@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Add Products</title>
+
+  <link
+    rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FFC629'/%3E%3Ccircle cx='10' cy='10' r='2.5' fill='%2314232F'/%3E%3Ccircle cx='22' cy='10' r='2.5' fill='%2314232F'/%3E%3Ccircle cx='10' cy='22' r='2.5' fill='%2314232F'/%3E%3Cpath d='M22 17v5a2.5 2.5 0 0 0 5 0' stroke='%2314232F' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --primary: #ffc629;
+      --primary-dark: #e6ae00;
+
+      --dark: #111827;
+      --dark-2: #1f2937;
+
+      --text: #172033;
+      --muted: #64748b;
+
+      --border: #dbe2ea;
+      --background: #f5f7fb;
+      --white: #ffffff;
+
+      --success: #16a34a;
+      --danger: #dc2626;
+
+      --radius: 16px;
+
+      --shadow:
+        0 20px 50px rgba(15, 23, 42, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family:
+        "Atkinson Hyperlegible",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(255, 198, 41, 0.16),
+          transparent 32%
+        ),
+        var(--background);
+
+      color: var(--text);
+    }
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    .topbar {
+      background: var(--dark);
+      color: white;
+
+      padding: 18px 30px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      background: var(--primary);
+      color: var(--dark);
+
+      border-radius: 12px;
+
+      font-size: 21px;
+    }
+
+    .brand h1 {
+      margin: 0;
+
+      font-family:
+        "Bricolage Grotesque",
+        sans-serif;
+
+      font-size: 22px;
+    }
+
+    .brand p {
+      margin: 2px 0 0;
+
+      color: #cbd5e1;
+
+      font-size: 13px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+
+      padding: 10px 15px;
+
+      border-radius: 9px;
+
+      color: white;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: var(--dark-2);
+    }
+
+    .nav-links .active {
+      background: var(--primary);
+      color: var(--dark);
+    }
+
+    /* =====================================================
+       PAGE
+       ===================================================== */
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+
+      margin: 40px auto;
+    }
+
+    .page-title {
+      margin-bottom: 30px;
+    }
+
+    .page-title h2 {
+      margin: 0;
+
+      font-family:
+        "Bricolage Grotesque",
+        sans-serif;
+
+      font-size: 32px;
+    }
+
+    .page-title p {
+      margin: 8px 0 0;
+
+      color: var(--muted);
+
+      font-size: 15px;
+    }
+
+    /* =====================================================
+       CARDS
+       ===================================================== */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--white);
+
+      border: 1px solid var(--border);
+
+      border-radius: var(--radius);
+
+      padding: 30px;
+
+      box-shadow: var(--shadow);
+    }
+
+    .card-header {
+      display: flex;
+
+      align-items: center;
+
+      gap: 15px;
+
+      margin-bottom: 26px;
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+
+      display: grid;
+      place-items: center;
+
+      background: #fff8d9;
+
+      border-radius: 14px;
+
+      font-size: 25px;
+    }
+
+    .card-header h3 {
+      margin: 0;
+
+      font-family:
+        "Bricolage Grotesque",
+        sans-serif;
+
+      font-size: 22px;
+    }
+
+    .card-header p {
+      margin: 4px 0 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    /* =====================================================
+       FORM
+       ===================================================== */
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+
+      left: 15px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      pointer-events: none;
+
+      font-size: 17px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      height: 50px;
+
+      padding:
+        0 15px 0 45px;
+
+      border:
+        1.5px solid var(--border);
+
+      border-radius: 10px;
+
+      outline: none;
+
+      background: white;
+
+      font-size: 15px;
+
+      transition: 0.2s ease;
+    }
+
+    .input-wrapper input:focus {
+      border-color: var(--primary);
+
+      box-shadow:
+        0 0 0 4px rgba(255, 198, 41, 0.18);
+    }
+
+    .input-wrapper input.valid {
+      border-color: var(--success);
+    }
+
+    .input-wrapper input.invalid {
+      border-color: var(--danger);
+    }
+
+    .error-message {
+      display: block;
+
+      min-height: 18px;
+
+      margin-top: 5px;
+
+      color: var(--danger);
+
+      font-size: 12px;
+    }
+
+    /* =====================================================
+       BUTTON
+       ===================================================== */
+
+    .btn {
+      width: 100%;
+
+      height: 50px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+
+      color: var(--dark);
+
+      box-shadow:
+        0 8px 20px rgba(255, 198, 41, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      margin-top: 10px;
+
+      background: #f1f5f9;
+
+      color: var(--dark);
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+
+      cursor: not-allowed;
+    }
+
+    /* =====================================================
+       FILE UPLOAD
+       ===================================================== */
+
+    .upload-area {
+      border:
+        2px dashed #cbd5e1;
+
+      border-radius: 14px;
+
+      padding: 30px 20px;
+
+      text-align: center;
+
+      background: #f8fafc;
+
+      transition: 0.2s ease;
+
+      cursor: pointer;
+    }
+
+    .upload-area:hover {
+      border-color: var(--primary);
+
+      background: #fffdf0;
+    }
+
+    .upload-icon {
+      font-size: 42px;
+
+      margin-bottom: 10px;
+    }
+
+    .upload-area h4 {
+      margin: 5px 0;
+
+      font-size: 17px;
+    }
+
+    .upload-area p {
+      margin: 5px 0 15px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .file-name {
+      display: none;
+
+      margin-top: 15px;
+
+      padding: 10px;
+
+      border-radius: 8px;
+
+      background: #fff8d9;
+
+      color: #765d00;
+
+      font-size: 13px;
+
+      font-weight: 700;
+    }
+
+    .format-box {
+      margin-top: 18px;
+
+      padding: 14px;
+
+      background: #f8fafc;
+
+      border-radius: 10px;
+
+      font-size: 13px;
+
+      color: var(--muted);
+
+      text-align: left;
+    }
+
+    .format-box strong {
+      color: var(--text);
+    }
+
+    .format-box code {
+      display: block;
+
+      margin-top: 8px;
+
+      padding: 10px;
+
+      background: var(--dark);
+
+      color: #f8fafc;
+
+      border-radius: 7px;
+
+      overflow-x: auto;
+
+      font-size: 12px;
+    }
+
+    /* =====================================================
+       STATUS
+       ===================================================== */
+
+    .status {
+      display: none;
+
+      margin-top: 18px;
+
+      padding: 13px 15px;
+
+      border-radius: 9px;
+
+      font-size: 14px;
+    }
+
+    .status.success {
+      display: block;
+
+      background: #f0fdf4;
+
+      color: #166534;
+    }
+
+    .status.error {
+      display: block;
+
+      background: #fef2f2;
+
+      color: #991b1b;
+    }
+
+    .status.info {
+      display: block;
+
+      background: #eff6ff;
+
+      color: #1d4ed8;
+    }
+
+    /* =====================================================
+       LOADER
+       ===================================================== */
+
+    .loader {
+      display: none;
+
+      width: 17px;
+      height: 17px;
+
+      margin-left: 8px;
+
+      border:
+        2px solid rgba(17, 24, 39, 0.25);
+
+      border-top-color: var(--dark);
+
+      border-radius: 50%;
+
+      vertical-align: middle;
+
+      animation: spin 0.7s linear infinite;
+    }
+
+    .loading .loader {
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    footer {
+      text-align: center;
+
+      margin: 35px 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 800px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        padding: 15px 18px;
+
+        flex-direction: column;
+
+        gap: 15px;
+      }
+
+      .container {
+        width: min(
+          100% - 24px,
+          600px
+        );
+
+        margin: 25px auto;
+      }
+
+      .page-title h2 {
+        font-size: 26px;
+      }
+
+      .card {
+        padding: 22px;
+      }
+
+      .nav-links {
+        width: 100%;
+      }
+
+      .nav-links a {
+        flex: 1;
+
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <header class="topbar">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        📦
+      </div>
+
+      <div>
+        <h1>Product Manager</h1>
+        <p>MySQL + Node.js Practice</p>
+      </div>
+
+    </div>
+
+    <nav class="nav-links">
+
+      <a href="/index.html" class="active">
+        ➕ Add Products
+      </a>
+
+      <a href="/products.html">
+        📋 Products
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <!-- =====================================================
+       MAIN
+       ===================================================== -->
+
+  <main class="container">
+
+    <div class="page-title">
+
+      <h2>Add Products</h2>
+
+      <p>
+        Add a single product manually or upload multiple
+        products from a TXT file.
+      </p>
+
+    </div>
+
+
+    <div class="cards">
+
+      <!-- =================================================
+           CARD 1 — MANUAL PRODUCT
+           ================================================= -->
+
+      <section class="card">
+
+        <div class="card-header">
+
+          <div class="card-icon">
+            📱
+          </div>
+
+          <div>
+
+            <h3>Add Product</h3>
+
+            <p>
+              Enter one product manually.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <form id="productForm">
+
+          <div class="form-group">
+
+            <label for="product_name">
+              Product Name
+            </label>
+
+            <div class="input-wrapper">
+
+              <span class="input-icon">
+                📱
+              </span>
+
+              <input
+                type="text"
+                id="product_name"
+                name="product_name"
+                placeholder="e.g. iPhone 15 Pro"
+                minlength="2"
+                maxlength="100"
+                required
+              />
+
+            </div>
+
+            <small
+              class="error-message"
+              id="nameError"
+            ></small>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="product_url">
+              Product URL
+            </label>
+
+            <div class="input-wrapper">
+
+              <span class="input-icon">
+                🔗
+              </span>
+
+              <input
+                type="url"
+                id="product_url"
+                name="product_url"
+                placeholder="https://www.apple.com/"
+                required
+              />
+
+            </div>
+
+            <small
+              class="error-message"
+              id="urlError"
+            ></small>
+
+          </div>
+
+
+          <button
+            class="btn btn-primary"
+            type="submit"
+            id="submitBtn"
+          >
+
+            <span class="btn-text">
+              ➕ Add Product
+            </span>
+
+            <span class="loader"></span>
+
+          </button>
+
+        </form>
+
+
+        <div
+          class="status"
+          id="formStatus"
+        ></div>
+
+      </section>
+
+
+      <!-- =================================================
+           CARD 2 — TXT UPLOAD
+           ================================================= -->
+
+      <section class="card">
+
+        <div class="card-header">
+
+          <div class="card-icon">
+            📄
+          </div>
+
+          <div>
+
+            <h3>Upload TXT File</h3>
+
+            <p>
+              Add multiple products at once.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <form
+          id="uploadForm"
+          enctype="multipart/form-data"
+        >
+
+          <label
+            for="txtFile"
+            class="upload-area"
+          >
+
+            <div class="upload-icon">
+              📄
+            </div>
+
+            <h4>
+              Choose TXT File
+            </h4>
+
+            <p>
+              Click here to select your product file
+            </p>
+
+            <input
+              type="file"
+              id="txtFile"
+              name="productFile"
+              class="file-input"
+              accept=".txt,text/plain"
+              required
+            />
+
+            <strong>
+              Browse File
+            </strong>
+
+          </label>
+
+
+          <div
+            class="file-name"
+            id="fileName"
+          ></div>
+
+
+          <div class="format-box">
+
+            <strong>
+              TXT file format:
+            </strong>
+
+            <p>
+              Put one product on each line.
+              Separate the product name and URL using
+              the <strong>|</strong> character.
+            </p>
+
+            <code>
+iPhone 15 Pro|https://www.apple.com/iphone-15-pro/
+iPhone 15|https://www.apple.com/iphone-15/
+iPhone 14 Pro|https://www.apple.com/iphone-14-pro/
+            </code>
+
+          </div>
+
+
+          <button
+            class="btn btn-primary"
+            type="submit"
+            id="uploadBtn"
+            style="margin-top:18px;"
+          >
+
+            <span class="btn-text">
+              📤 Upload & Add Products
+            </span>
+
+            <span class="loader"></span>
+
+          </button>
+
+        </form>
+
+
+        <div
+          class="status"
+          id="uploadStatus"
+        ></div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+    Product Management System · Node.js + Express + MySQL
+  </footer>
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        /* =================================================
+           MANUAL PRODUCT FORM
+           ================================================= */
+
+        const productForm =
+          document.getElementById("productForm");
+
+        const productName =
+          document.getElementById("product_name");
+
+        const productUrl =
+          document.getElementById("product_url");
+
+        const nameError =
+          document.getElementById("nameError");
+
+        const urlError =
+          document.getElementById("urlError");
+
+        const submitBtn =
+          document.getElementById("submitBtn");
+
+        const formStatus =
+          document.getElementById("formStatus");
+
+
+        function showStatus(
+          element,
+          message,
+          type
+        ) {
+
+          element.textContent = message;
+
+          element.className =
+            `status ${type}`;
+
+        }
+
+
+        function validateName() {
+
+          const value =
+            productName.value.trim();
+
+          if (value.length < 2) {
+
+            productName.classList.add("invalid");
+
+            nameError.textContent =
+              "Product name must contain at least 2 characters.";
+
+            return false;
+          }
+
+          productName.classList.remove("invalid");
+
+          productName.classList.add("valid");
+
+          nameError.textContent = "";
+
+          return true;
+        }
+
+
+        function validateUrl() {
+
+          const value =
+            productUrl.value.trim();
+
+          try {
+
+            const url =
+              new URL(value);
+
+            if (
+              !["http:", "https:"]
+                .includes(url.protocol)
+            ) {
+              throw new Error();
+            }
+
+            productUrl.classList.remove("invalid");
+
+            productUrl.classList.add("valid");
+
+            urlError.textContent = "";
+
+            return true;
+
+          } catch {
+
+            productUrl.classList.add("invalid");
+
+            urlError.textContent =
+              "Enter a valid HTTP or HTTPS URL.";
+
+            return false;
+          }
+        }
+
+
+        productName.addEventListener(
+          "input",
+          validateName
+        );
+
+        productUrl.addEventListener(
+          "input",
+          validateUrl
+        );
+
+
+        productForm.addEventListener(
+          "submit",
+          async (event) => {
+
+            event.preventDefault();
+
+            const nameValid =
+              validateName();
+
+            const urlValid =
+              validateUrl();
+
+            if (!nameValid || !urlValid) {
+              return;
+            }
+
+            submitBtn.disabled = true;
+
+            submitBtn.classList.add("loading");
+
+
+            try {
+
+              const response =
+                await fetch(
+                  "/add-product",
+                  {
+                    method: "POST",
+
+                    headers: {
+                      "Content-Type":
+                        "application/json"
+                    },
+
+                    body: JSON.stringify({
+                      product_name:
+                        productName.value.trim(),
+
+                      product_url:
+                        productUrl.value.trim()
+                    })
+                  }
+                );
+
+
+              const data =
+                await response.json();
+
+
+              if (!response.ok) {
+                throw new Error(
+                  data.message ||
+                  "Failed to add product."
+                );
+              }
+
+
+              showStatus(
+                formStatus,
+                "✅ Product added successfully!",
+                "success"
+              );
+
+
+              productForm.reset();
+
+              productName.classList.remove("valid");
+
+              productUrl.classList.remove("valid");
+
+
+            } catch (error) {
+
+              showStatus(
+                formStatus,
+                `❌ ${error.message}`,
+                "error"
+              );
+
+            } finally {
+
+              submitBtn.disabled = false;
+
+              submitBtn.classList.remove("loading");
+
+            }
+
+          }
+        );
+
+
+        /* =================================================
+           TXT FILE UPLOAD
+           ================================================= */
+
+        const uploadForm =
+          document.getElementById("uploadForm");
+
+        const txtFile =
+          document.getElementById("txtFile");
+
+        const fileName =
+          document.getElementById("fileName");
+
+        const uploadBtn =
+          document.getElementById("uploadBtn");
+
+        const uploadStatus =
+          document.getElementById("uploadStatus");
+
+
+        /* Show selected file */
+
+        txtFile.addEventListener(
+          "change",
+          () => {
+
+            if (!txtFile.files.length) {
+
+              fileName.style.display = "none";
+
+              return;
+            }
+
+
+            const file =
+              txtFile.files[0];
+
+
+            if (
+              !file.name
+                .toLowerCase()
+                .endsWith(".txt")
+            ) {
+
+              txtFile.value = "";
+
+              fileName.style.display = "none";
+
+              showStatus(
+                uploadStatus,
+                "❌ Please select a TXT file.",
+                "error"
+              );
+
+              return;
+            }
+
+
+            fileName.textContent =
+              `📄 Selected: ${file.name}`;
+
+            fileName.style.display =
+              "block";
+
+            uploadStatus.className =
+              "status";
+
+            uploadStatus.textContent = "";
+
+          }
+        );
+
+
+        /* Upload TXT file */
+
+        uploadForm.addEventListener(
+          "submit",
+          async (event) => {
+
+            event.preventDefault();
+
+
+            if (!txtFile.files.length) {
+
+              showStatus(
+                uploadStatus,
+                "❌ Please select a TXT file.",
+                "error"
+              );
+
+              return;
+            }
+
+
+            const formData =
+              new FormData();
+
+            formData.append(
+              "productFile",
+              txtFile.files[0]
+            );
+
+
+            uploadBtn.disabled = true;
+
+            uploadBtn.classList.add(
+              "loading"
+            );
+
+
+            showStatus(
+              uploadStatus,
+              "📤 Uploading and importing products...",
+              "info"
+            );
+
+
+            try {
+
+              const response =
+                await fetch(
+                  "/upload-products",
+                  {
+                    method: "POST",
+
+                    body: formData
+                  }
+                );
+
+
+              const data =
+                await response.json();
+
+
+              if (!response.ok) {
+
+                throw new Error(
+                  data.message ||
+                  "Upload failed."
+                );
+
+              }
+
+
+              showStatus(
+                uploadStatus,
+
+                `✅ ${data.message}`,
+
+                "success"
+              );
+
+
+              uploadForm.reset();
+
+              fileName.style.display =
+                "none";
+
+
+            } catch (error) {
+
+              showStatus(
+                uploadStatus,
+
+                `❌ ${error.message}`,
+
+                "error"
+              );
+
+            } finally {
+
+              uploadBtn.disabled = false;
+
+              uploadBtn.classList.remove(
+                "loading"
+              );
+
+            }
+
+          }
+        );
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
