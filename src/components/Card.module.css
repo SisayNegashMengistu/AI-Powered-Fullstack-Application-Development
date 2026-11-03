@@ -1,0 +1,122 @@
+/* The card keeps a fixed 190x107 footprint inside the slide.
+   .inner is absolutely positioned and centred on it, so it can grow
+   in every direction on hover without pushing neighbouring cards around. */
+.card {
+  position: relative;
+  width: 190px;
+  height: 107px;
+  flex-shrink: 0;
+  outline: none;
+}
+
+.inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  background: #141414;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: width 0.2s ease, box-shadow 0.2s ease;
+}
+
+.poster {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #222;
+}
+
+.details {
+  display: none;
+  padding: 8px 12px 12px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card:hover .inner,
+.card:focus-within .inner,
+.card:focus .inner {
+  width: 270px;
+  z-index: 30;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.9);
+}
+
+.card:hover .details,
+.card:focus-within .details,
+.card:focus .details {
+  display: block;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  margin-bottom: 8px;
+  background: #e50914;
+  border-radius: 3px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actionsLeft {
+  display: flex;
+  gap: 6px;
+}
+
+.round {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  background: #2a2a2a;
+  color: #fff;
+}
+
+.actionsLeft .round:first-child {
+  background: #fff;
+  border-color: #fff;
+  color: #000;
+}
+
+.round:hover {
+  border-color: #fff;
+}
+
+.more {
+  margin-right: 2px;
+}
+
+.meta {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 6px;
+  font-size: 13px;
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  color: #bcbcbc;
+}
+
+.genres li + li::before {
+  content: "•";
+  margin: 0 7px;
+  color: #777;
+}

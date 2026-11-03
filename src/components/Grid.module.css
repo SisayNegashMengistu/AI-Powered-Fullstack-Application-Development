@@ -1,0 +1,24 @@
+/* Cards keep a 190x107 footprint; the hover panel grows ~40px sideways and
+   ~80px up/down, so the gaps below leave room for it. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 190px);
+  gap: 80px 46px;
+  padding: 30px 50px 70px;
+  justify-content: start;
+}
+
+.empty {
+  padding: 20px 50px;
+  color: #b3b3b3;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+@media (max-width: 700px) {
+  .grid,
+  .empty {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

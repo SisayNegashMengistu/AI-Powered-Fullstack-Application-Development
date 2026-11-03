@@ -1,0 +1,55 @@
+/* shared by the pages that don't have a banner (search, My List, TV, Movies, New) */
+.page {
+  padding-top: 58px; /* clears the fixed header */
+  min-height: 70vh;
+}
+
+.heading {
+  margin: 36px 50px 0;
+  font-size: 28px;
+}
+
+.subheading {
+  margin: 10px 50px 0;
+  font-size: 22px;
+}
+
+/* rows on these pages start a little lower than under the banner */
+.rows {
+  padding-top: 24px;
+}
+
+@media (max-width: 700px) {
+  .heading,
+  .subheading {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}
+
+.note {
+  margin: 20px 50px;
+  color: #b3b3b3;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 60px;
+}
+
+.more button {
+  padding: 10px 28px;
+  border: 1px solid #5a5a5a;
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+.more button:hover {
+  border-color: #fff;
+}

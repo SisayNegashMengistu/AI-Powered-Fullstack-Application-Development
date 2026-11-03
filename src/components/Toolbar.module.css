@@ -1,0 +1,83 @@
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
+  margin: 18px 50px 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tabs button,
+.chip {
+  padding: 6px 16px;
+  border: 1px solid #5a5a5a;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+}
+
+.tabs button:hover,
+.chip:hover {
+  border-color: #fff;
+}
+
+.tabs button.on,
+.chip.on {
+  background: #fff;
+  border-color: #fff;
+  color: #000;
+  font-weight: bold;
+}
+
+.selects {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+}
+
+.selects label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #b3b3b3;
+}
+
+.selects select {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid #5a5a5a;
+  border-radius: 3px;
+  background: #141414;
+  color: #fff;
+  font-size: 14px;
+}
+
+.count {
+  color: #8c8c8c;
+}
+
+/* genre chips on the Categories page */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 50px 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (max-width: 700px) {
+  .toolbar,
+  .chips {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}

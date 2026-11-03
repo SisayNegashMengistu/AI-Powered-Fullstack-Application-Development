@@ -1,0 +1,172 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 58px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #000;
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: block;
+  width: 70px;
+  margin-right: 34px;
+}
+
+.nav {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.nav a,
+.nav button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.nav a:hover,
+.nav button:hover {
+  color: #b3b3b3;
+}
+
+.nav .active {
+  font-weight: bold;
+}
+
+.right {
+  gap: 22px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.searchInput {
+  width: 190px;
+  height: 28px;
+  padding: 0 8px;
+  background: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  font-size: 14px;
+  /* the icon sits to the right of the box, as in the expanded design */
+  order: 2;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: #8c8c8c;
+}
+
+.iconBtn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #fff;
+}
+
+.bell .dot {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e50914;
+}
+
+.profile {
+  position: relative;
+}
+
+.profileBtn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #fff;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 3px;
+  background: #5a5a5a;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+}
+
+.flip {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: -8px;
+  width: 150px;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid #333;
+  font-size: 13px;
+}
+
+.dropdown li a {
+  display: block;
+  padding: 9px 14px;
+}
+
+.dropdown li a:hover {
+  text-decoration: underline;
+}
+
+.withDivider {
+  margin-top: 6px;
+  border-top: 1px solid #333;
+  padding-top: 6px;
+}
+
+@media (max-width: 900px) {
+  .header {
+    padding: 0 16px;
+  }
+  .nav {
+    display: none;
+  }
+  .logo {
+    margin-right: 0;
+  }
+}

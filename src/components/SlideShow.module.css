@@ -1,0 +1,92 @@
+.title {
+  color: white;
+}
+
+/* Make wrapper stable */
+.Row {
+  position: relative;
+}
+
+/* Swiper container */
+.Row :global(.swiper) {
+  height: 265px;
+  padding: 0 50px; 
+}
+
+/* Slides */
+.Row :global(.swiper-slide) {
+  display: flex;
+  align-items: center;
+  height: 100%; /* remove 130% */
+}
+
+/* Navigation buttons base style */
+.Row :global(.swiper-button-prev),
+.Row :global(.swiper-button-next) {
+  background: transparent !important;
+  color: white !important;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Smaller arrow icon */
+.Row :global(.swiper-button-prev::after),
+.Row :global(.swiper-button-next::after) {
+  font-size: 14px !important;
+}
+
+/* Show on hover */
+.Row:hover :global(.swiper-button-prev),
+.Row:hover :global(.swiper-button-next) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---- additions for this project ---- */
+.title {
+  margin: 0 0 4px 8px;
+  font-size: 19px;
+}
+
+/* slides are as wide as the card inside them */
+.Row :global(.swiper-slide) {
+  width: auto;
+}
+
+/* the hovered card grows past its slide, so lift the whole slide above its neighbours */
+.Row :global(.swiper-slide):hover,
+.Row :global(.swiper-slide):focus-within {
+  z-index: 30;
+}
+
+.Row :global(.swiper-button-prev),
+.Row :global(.swiper-button-next) {
+  z-index: 40;
+}
+
+/* no arrow when there is nowhere to scroll */
+.Row :global(.swiper-button-disabled) {
+  opacity: 0 !important;
+}
+
+.error {
+  margin: 8px;
+  color: #b3b3b3;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+/* room for the expanded hover card (poster + details ≈ 270px) */
+.Row :global(.swiper) {
+  height: 280px;
+  /* pull the swiper over the empty space above/below the 107px resting cards */
+  margin: -55px 0;
+}
+
+/* keep the hovered row (and its enlarged card) above the rows that follow it */
+.Row:hover {
+  z-index: 5;
+}
